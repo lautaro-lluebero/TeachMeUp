@@ -42,7 +42,6 @@ def registro():
 @routes_auth.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        nombre = request.form["nombre"]
         email = request.form["email"]
         password = request.form["password"]
 
