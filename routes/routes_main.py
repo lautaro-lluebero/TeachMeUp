@@ -4,4 +4,4 @@ routes_main = Blueprint("routes_main", __name__)
 
 @routes_main.route("/")
 def index():
-    return render_template("layout.html")
+    return render_template("index.html")
