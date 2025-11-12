@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block titulo %}TeachMeUp{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body class="layout-body">
+    <header class="navbar">
+      <div class="navbar-left">
+        <a href="#" class="logo-link">
+          <div class="logo-brand-container">
+            <img
+              src="{{ url_for('static', filename='img/logoTeachMeUp.png') }}"
+              alt="TeachMeUp Logo"
+              class="header-logo"
+            />
+            <span class="logo-text">TeachMeUp</span>
+          </div>
+        </a>
+        <nav class="nav-links">
+          <a href="#" class="nav-item active">Inicio</a>
+          <a href="#" class="nav-item">Profesores</a>
+        </nav>
+      </div>
+
+      <div class="navbar-right">
+        <span class="user-info">user(rol)</span>
+        <div class="profile-icon"></div>
+      </div>
+    </header>
+
+    <main class="content-container">{% block contenido %} {% endblock %}</main>
+  </body>
+</html>
