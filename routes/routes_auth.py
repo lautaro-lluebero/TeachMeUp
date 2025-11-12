@@ -40,8 +40,7 @@ def registro():
         flash("Usuario registrado correctamente", "success")
         return redirect(url_for("routes_auth.login"))
 
-    return render_template("registro.html")
-
+    return render_template("index.html")
 
 # -------------------- Login --------------------
 @routes_auth.route("/login", methods=["GET", "POST"])
@@ -66,13 +65,12 @@ def login():
             session["rol"] = user.rol
 
             flash(f"Bienvenido, {user.nombre} ({user.rol})", "success")
-            return redirect(url_for("routes_main.index"))
+            return render_template("layout.html")
         else:
             flash("Correo o contraseña incorrectos", "error")
             return redirect(url_for("routes_auth.login"))
 
     return render_template("login.html")
-
 
 # -------------------- Logout --------------------
 @routes_auth.route("/logout")
