@@ -1,15 +1,12 @@
 from flask import Flask
-from dotenv import load_dotenv
 from models.db import db
 from routes.routes_auth import routes_auth
 from routes.routes_main import routes_main
-
-import os
 from config.config import DATABASE_CONNECTION_URI
 # -----------------------------
 # Cargar configuración desde .env
 # -----------------------------
-load_dotenv()
+
 
 app = Flask(__name__)
 

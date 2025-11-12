@@ -8,10 +8,6 @@ routes_auth = Blueprint("routes_auth", __name__, url_prefix="/auth")
 # -------------------- Registro --------------------
 @routes_auth.route("/registro", methods=["GET", "POST"])
 def registro():
-    # Si ya está logueado, lo manda al inicio
-    if session.get("logged_in"):
-        return redirect(url_for("routes_main.index"))
-
     if request.method == "POST":
         nombre = request.form["nombre"]
         email = request.form["email"]
@@ -40,15 +36,11 @@ def registro():
         flash("Usuario registrado correctamente", "success")
         return redirect(url_for("routes_auth.login"))
 
-    return render_template("index.html")
+    return render_template("registro.html")
 
 # -------------------- Login --------------------
 @routes_auth.route("/login", methods=["GET", "POST"])
 def login():
-    # Si ya está logueado, lo manda al inicio
-    if session.get("logged_in"):
-        return redirect(url_for("routes_main.index"))
-
     if request.method == "POST":
         nombre = request.form["nombre"]
         email = request.form["email"]

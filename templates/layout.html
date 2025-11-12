@@ -33,7 +33,7 @@
         <div class="profile-icon"></div>
       </div>
     </header>
-
+    <a href="{{url_for('routes_auth.logout')}}"><p>Cerrar Sesion</p></a>
     <main class="content-container">{% block contenido %} {% endblock %}</main>
   </body>
 </html>
