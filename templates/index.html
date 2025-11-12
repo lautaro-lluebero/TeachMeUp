@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>TeachMeUp</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="inicio-body">
+
+  <div class="inicio-container">
+    <div class="inicio-izquierda">
+
+      <!-- Logo arriba izquierda -->
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="TeachMeUp Logo" class="logo-superior">
+
+      <!-- Contenido principal -->
+      <div class="contenido-central">
+        <h1>Bienvenido a <span class="azul">TeachMeUp</span></h1>
+        <h3>¡Tu lugar indicado para formarte!</h3>
+
+        <div class="botones">
+          <a class="btn-inicio" href="{{ url_for('routes_auth.registro') }}">Crear cuenta</a>
+          <a class="btn-inicio" href="{{ url_for('routes_auth.login') }}">Iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="inicio-derecha">
+      <img src="{{ url_for('static', filename='img/portada.png') }}" alt="Clases online" class="imagen-derecha">
+    </div>
+  </div>
+
+</body>
+</html>

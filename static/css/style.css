@@ -1,0 +1,124 @@
+/* ======== PANTALLA DE INICIO ======== */
+.inicio-body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f5f8fa;
+}
+
+.inicio-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.inicio-izquierda {
+  flex: 1;
+  background-color: #2f546d;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-superior {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 50px;
+  height: auto;
+  opacity: 0.95;
+  border-radius: 15px;         
+  background-color: white;     
+  padding: 5px;                 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease;
+}
+
+.logo-superior:hover {
+  transform: scale(1.05);
+}
+
+.contenido-central {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.inicio-izquierda h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.inicio-izquierda .azul {
+  color: #00b4d8;
+}
+
+.inicio-izquierda h3 {
+  font-weight: 400;
+  border-top: 2px solid white;
+  display: inline-block;
+  padding-top: 10px;
+  margin-bottom: 40px;
+}
+
+.botones {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.btn-inicio {
+  background: white;
+  color: #2f546d;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 45px;
+  border-radius: 25px;
+  transition: 0.3s;
+}
+
+.btn-inicio:hover {
+  background: #00b4d8;
+  color: white;
+}
+
+.inicio-derecha {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+.imagen-derecha {
+  width: 80%;
+  max-width: 500px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .inicio-container {
+    flex-direction: column;
+  }
+
+  .logo-superior {
+    position: static;
+    margin-top: 15px;
+  }
+
+  .inicio-izquierda, .inicio-derecha {
+    width: 100%;
+    height: auto;
+  }
+
+  .imagen-derecha {
+    width: 70%;
+    margin-top: 30px;
+  }
+}
