@@ -1,0 +1,111 @@
+/* Hero section */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 8%;
+  background: linear-gradient(120deg, #1f4c68, #0b233a);
+  color: #fff;
+  border-radius: 0 0 50px 50px;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+
+.hero-content span {
+  color: #00bfa6;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.btn-principal {
+  background-color: #00bfa6;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-principal:hover {
+  background-color: #02d4b8;
+  transform: scale(1.05);
+}
+
+/* Imagen decorativa del hero */
+.hero-image {
+  flex: 1;
+  background: url("../img/hero-illustration.png") no-repeat center/contain;
+  height: 300px;
+}
+
+/* Cards */
+.cards-section {
+  padding: 60px 8%;
+  text-align: center;
+}
+
+.cards-section h2 {
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: #0b233a;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  padding: 25px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  color: #1f4c68;
+  margin-bottom: 10px;
+}
+
+/* Frase motivacional */
+.quote-section {
+  background-color: #0b233a;
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+  font-style: italic;
+}
+
+.quote-section blockquote {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #00bfa6;
+}
