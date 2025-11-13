@@ -12,7 +12,6 @@ def cargar_servicio():
     nombre_profesor = categoria = descripcion = modalidad = direccion = precio = None
     profesor_id = session.get("user_id")
     profesor_nombre = session.get("username")
-
     if request.method == "GET":
         profesor_id = session.get("user_id")
         print(f"ID en sesión: {profesor_id}")
