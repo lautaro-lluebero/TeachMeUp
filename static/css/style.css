@@ -140,14 +140,16 @@
   background-color: var(--main-bg-color);
 }
 
+/* NAVBAR un poco más alta y con espacio */
 .navbar {
   background-color: var(--header-bg-color);
   color: var(--text-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 10px 30px;      /* más alto y más ancho */
   box-sizing: border-box;
+  position: relative;      /* para el submenú */
 }
 
 .navbar-left {
@@ -167,24 +169,24 @@
   display: flex;
   align-items: center;
   background-color: var(--logo-bg-color);
-  padding: 0 12px 0 6px;
+  padding: 0 14px 0 8px;
   border-radius: 30px;
   margin-right: 25px;
-  height: 50px;
+  height: 60px;            /* antes 50px */
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .header-logo {
-  height: 26px;
-  width: 26px;
-  margin-right: 6px;
+  height: 34px;            /* antes 26px */
+  width: 34px;
+  margin-right: 8px;
   display: block;
   object-fit: contain;
 }
 
 .logo-text {
-  font-size: 1em;
+  font-size: 1.05em;
   color: var(--logo-text-color);
   font-weight: bold;
   line-height: 1;
@@ -200,14 +202,14 @@
 .nav-item {
   color: var(--text-light);
   text-decoration: none;
-  padding: 5px 12px;
+  padding: 8px 14px;       /* un poco más alto */
   margin: 0 4px;
   border-radius: 20px;
   transition: background-color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
+  height: 36px;            /* antes 32px */
   font-size: 0.9em;
   line-height: 1;
   box-sizing: border-box;
@@ -225,6 +227,8 @@
   display: flex;
   align-items: center;
   height: 100%;
+  position: relative;      /* para el submenú */
+  cursor: pointer;
 }
 
 .user-info {
@@ -233,15 +237,66 @@
 }
 
 .profile-icon {
-  background-color: #cccccc;
-  border: 1px solid var(--text-light);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
+  width: 60px;              /* más grande */
+  height: 60px;
+  border-radius: 50%;       /* se mantiene redondo */
+  border: none;             /* SIN círculo/borde exterior */
+  background: none;
+  object-fit: cover;        /* la imagen llena bien el círculo */
+  display: block;
 }
+
 .content-container {
   padding: 20px;
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 80px);  /* más alto porque la navbar creció */
   background-color: var(--main-bg-color);
 }
+
+/* ===== Submenú usuario (dropdown arriba derecha) ===== */
+
+/* Contenedor del menú */
+.user-menu {
+  position: absolute;
+  top: 70px;           /* ajustado a la nueva altura de la navbar */
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 8px 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 180px;
+  display: none;       /* escondido por defecto */
+  z-index: 1000;
+}
+
+/* Cuando está abierto */
+.user-menu.open {
+  display: block;
+}
+
+.user-menu li {
+  width: 100%;
+}
+
+.user-menu li a {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+
+.user-menu li a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Separar el Cerrar sesión visualmente */
+.user-menu li:last-child a {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 4px;
+}
+

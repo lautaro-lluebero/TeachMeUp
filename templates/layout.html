@@ -12,7 +12,8 @@
   <body class="layout-body">
     <header class="navbar">
       <div class="navbar-left">
-        <a href="#" class="logo-link">
+        <!-- Logo que lleva al inicio logueado -->
+        <a href="{{ url_for('routes_main.index') }}" class="logo-link">
           <div class="logo-brand-container">
             <img
               src="{{ url_for('static', filename='img/logoTeachMeUp.png') }}"
@@ -22,18 +23,93 @@
             <span class="logo-text">TeachMeUp</span>
           </div>
         </a>
+
+        <!-- Menú principal -->
         <nav class="nav-links">
-          <a href="#" class="nav-item active">Inicio</a>
+          <a href="{{ url_for('routes_main.index') }}" class="nav-item active">
+            Inicio
+          </a>
+
+          <!-- Cambia "#" por la ruta real cuando la tengas -->
           <a href="#" class="nav-item">Profesores</a>
         </nav>
       </div>
 
-      <div class="navbar-right">
-        <span class="user-info">user(rol)</span>
-        <div class="profile-icon"></div>
+      <!-- Parte derecha: usuario + submenú -->
+      <div class="navbar-right" id="user-menu-toggle">
+        <span class="user-info">
+          {{ session.get('username', 'Usuario') }}
+          ({{ session.get('rol', 'rol') }})
+        </span>
+        {% set avatar = session.get('avatar_url') or url_for('static', filename='img/perfil.png') %}
+        <img src="{{ url_for('static', filename='img/perfil.png') }}" alt="Foto de perfil" class="profile-icon" />
+
+        <!-- Submenú de usuario -->
+        <ul class="user-menu" id="user-menu">
+          <!-- Visible para todos -->
+          <li>
+            <!-- Cambia "#" por url_for('...') cuando tengas la vista de perfil -->
+            <a href="#">Perfil</a>
+          </li>
+
+          <!-- SOLO ADMIN: configuración y cargar archivos -->
+          {% if session.get('rol') == 'admin' %}
+            <li>
+              <!-- Ejemplo futuro: url_for('routes_admin.configuracion') -->
+              <a href="#">Configuración</a>
+            </li>
+            <li>
+              <!-- Ejemplo futuro: url_for('routes_admin.cargar_archivos') -->
+              <a href="#">Cargar archivos</a>
+            </li>
+          {% endif %}
+
+          <!-- ADMIN Y PROFESOR: cargar servicio -->
+          {% if session.get('rol') in ['admin', 'profesor'] %}
+            <li>
+              <!-- Ejemplo futuro: url_for('routes_prof.cargar_servicio') -->
+              <a href="#">Cargar servicio</a>
+            </li>
+          {% endif %}
+
+          <!-- Cerrar sesión: todos -->
+          <li>
+            <a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a>
+          </li>
+        </ul>
       </div>
     </header>
-    <a href="{{url_for('routes_auth.logout')}}"><p>Cerrar Sesion</p></a>
-    <main class="content-container">{% block contenido %} {% endblock %}</main>
+
+    <!-- Antes tenías un Cerrar Sesión suelto. Ya no hace falta. -->
+    <!-- <a href="{{url_for('routes_auth.logout')}}"><p>Cerrar Sesion</p></a> -->
+
+    <main class="content-container">
+      {% block contenido %}{% endblock %}
+    </main>
+
+    <!-- Script para abrir/cerrar el submenú -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.getElementById('user-menu-toggle');
+        const menu = document.getElementById('user-menu');
+
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          menu.classList.toggle('open');
+        });
+
+        // Cierra el menú al hacer clic fuera
+        document.addEventListener('click', function () {
+          menu.classList.remove('open');
+        });
+
+        // Evita que un clic dentro del menú lo cierre
+        menu.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      });
+    </script>
   </body>
 </html>
