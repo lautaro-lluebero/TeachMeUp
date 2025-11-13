@@ -1,0 +1,151 @@
+.config-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 10px;
+}
+
+.config-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.config-card h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #2c4a5c;
+}
+
+.config-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.config-alerts {
+  margin-bottom: 12px;
+}
+
+.alert {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.alert-success {
+  background-color: #e6ffed;
+  color: #166534;
+}
+
+.alert-error,
+.alert-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.config-table-wrapper {
+  overflow-x: auto;
+}
+
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.config-table thead {
+  background-color: #f5f8fa;
+}
+
+.config-table th,
+.config-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.config-table th {
+  font-weight: 600;
+  color: #374151;
+}
+
+.config-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.col-actions {
+  text-align: right;
+  width: 170px;
+}
+
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.inline-form {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.btn-small {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-edit {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-edit:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-delete:hover {
+  background-color: #b91c1c;
+}
+
+.rol {
+  text-transform: capitalize;
+}
+
+.btn-new-user {
+  background-color: #2f546d;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-new-user:hover {
+  background-color: #244355;
+}

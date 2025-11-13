@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block titulo %}Configuración de usuarios - TeachMeUp{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/configuracion.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<div class="config-wrapper">
+  <div class="config-card">
+    <div class="config-header">
+      <div>
+        <h1>Configuración de usuarios</h1>
+        
+      </div>
+
+      <div>
+        <a href="{{ url_for('routes_users.nuevo_usuario') }}" class="btn-new-user">
+          + Nuevo usuario
+        </a>
+      </div>
+    </div>
+
+    {# Mensajes flash #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="config-alerts">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if users %}
+      <div class="config-table-wrapper">
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th class="col-actions">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for u in users %}
+              <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.email }}</td>
+                <td class="rol">{{ u.rol | capitalize }}</td>
+                <td class="actions-cell">
+                  <a
+                    href="{{ url_for('routes_users.edit_user', id=u.id) }}"
+                    class="btn-small btn-edit"
+                  >
+                    Editar
+                  </a>
+
+                  <form
+                    method="POST"
+                    action="{{ url_for('routes_users.delete_user', id=u.id) }}"
+                    class="inline-form"
+                    onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?');"
+                  >
+                    <button type="submit" class="btn-small btn-delete">
+                      Eliminar
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No hay usuarios registrados.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

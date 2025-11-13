@@ -8,7 +8,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
+    {% block extra_css %}{% endblock %}
   </head>
+
   <body class="layout-body">
     <header class="navbar">
       <div class="navbar-left">
@@ -30,7 +32,7 @@
             Inicio
           </a>
 
-          <!-- Cambia "#" por la ruta real cuando la tengas -->
+          <!-- Cuando tengas la vista de profesores, cambias el href -->
           <a href="#" class="nav-item">Profesores</a>
         </nav>
       </div>
@@ -41,33 +43,29 @@
           {{ session.get('username', 'Usuario') }}
           ({{ session.get('rol', 'rol') }})
         </span>
+
+        {# Avatar (en el futuro puedes guardar session['avatar_url']) #}
         {% set avatar = session.get('avatar_url') or url_for('static', filename='img/perfil.png') %}
-        <img src="{{ url_for('static', filename='img/perfil.png') }}" alt="Foto de perfil" class="profile-icon" />
+        <img src="{{ avatar }}" alt="Foto de perfil" class="profile-icon" />
 
         <!-- Submenú de usuario -->
         <ul class="user-menu" id="user-menu">
           <!-- Visible para todos -->
           <li>
-            <!-- Cambia "#" por url_for('...') cuando tengas la vista de perfil -->
-            <a href="#">Perfil</a>
+            <a href="{{ url_for('routes_users.perfil') }}">Perfil</a>
           </li>
 
-          <!-- SOLO ADMIN: configuración y cargar archivos -->
-          {% if session.get('rol') == 'admin' %}
+          <!-- SOLO ADMINISTRADOR: configuración -->
+          {% if session.get('rol') == 'administrador' %}
             <li>
-              <!-- Ejemplo futuro: url_for('routes_admin.configuracion') -->
-              <a href="#">Configuración</a>
-            </li>
-            <li>
-              <!-- Ejemplo futuro: url_for('routes_admin.cargar_archivos') -->
-              <a href="#">Cargar archivos</a>
+              <a href="{{ url_for('routes_users.configuracion') }}">Configuración</a>
             </li>
           {% endif %}
 
-          <!-- ADMIN Y PROFESOR: cargar servicio -->
-          {% if session.get('rol') in ['admin', 'profesor'] %}
+          <!-- ADMINISTRADOR Y PROFESOR: cargar servicio (ruta futura) -->
+          {% if session.get('rol') in ['administrador', 'profesor'] %}
             <li>
-              <!-- Ejemplo futuro: url_for('routes_prof.cargar_servicio') -->
+              <!-- Cambia "#" por url_for('routes_prof.cargar_servicio') cuando lo tengas -->
               <a href="#">Cargar servicio</a>
             </li>
           {% endif %}
@@ -79,9 +77,6 @@
         </ul>
       </div>
     </header>
-
-    <!-- Antes tenías un Cerrar Sesión suelto. Ya no hace falta. -->
-    <!-- <a href="{{url_for('routes_auth.logout')}}"><p>Cerrar Sesion</p></a> -->
 
     <main class="content-container">
       {% block contenido %}{% endblock %}

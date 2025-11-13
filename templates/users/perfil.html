@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block titulo %}Mi perfil - TeachMeUp{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<div class="perfil-wrapper">
+  <div class="perfil-card">
+    <h1>Mi perfil</h1>
+    <p class="perfil-subtitle">
+      Rol: <span class="perfil-role">{{ user.rol | capitalize }}</span>
+    </p>
+
+    {# Mensajes flash #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="perfil-alerts">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if error %}
+      <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('routes_users.perfil') }}" class="perfil-form">
+      <div class="perfil-form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          value="{{ user.nombre }}"
+          required
+        />
+      </div>
+
+      <div class="perfil-form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="{{ user.email }}"
+          required
+        />
+      </div>
+
+      <div class="perfil-form-group">
+        <label for="password">Nueva contraseña</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Dejar vacío para mantener la actual"
+        />
+      </div>
+
+      <div class="perfil-actions">
+        <button type="submit" class="btn-primary">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

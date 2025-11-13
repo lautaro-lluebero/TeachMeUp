@@ -1,0 +1,128 @@
+.edit-wrapper {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px 10px;
+}
+
+.edit-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.edit-card h1 {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+  color: #2c4a5c;
+}
+
+.edit-subtitle {
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.edit-id {
+  font-weight: 600;
+  color: #2f546d;
+}
+
+.edit-alerts {
+  margin-bottom: 10px;
+}
+
+.alert {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.alert-success {
+  background-color: #e6ffed;
+  color: #166534;
+}
+
+.alert-error,
+.alert-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form-group label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.edit-form-group input,
+.edit-form-group select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.edit-form-group input:focus,
+.edit-form-group select:focus {
+  border-color: #5d98bc;
+  box-shadow: 0 0 0 2px rgba(93, 152, 188, 0.2);
+}
+
+.edit-help-text {
+  font-size: 0.75rem;
+  color: #777;
+  margin-top: 3px;
+}
+
+.edit-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-primary {
+  background-color: #2f546d;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #244355;
+}
+
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: #111827;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+}
