@@ -9,5 +9,14 @@ class Users(db.Model):
     password = db.Column(db.String(200), nullable=False)
     rol = db.Column(db.String(50), nullable=False)
 
+    profesor = db.relationship("Profesor", back_populates="user", uselist=False)
+    alumno = db.relationship("Alumno", back_populates="user", uselist=False)
+
+    def __init__(self,nombre,email, password, rol):
+        self.nombre = nombre
+        self.email = email
+        self.password= password
+        self.rol=rol
+
     def __repr__(self):
         return f"<User {self.nombre} ({self.rol})>"
