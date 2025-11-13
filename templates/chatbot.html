@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot DeepSeek</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h1>Chatbot conectado a DeepSeek</h1>
+
+    <div id="chat"></div>
+
+    <input id="msg" placeholder="Escribí tu mensaje...">
+    <button onclick="sendMessage()">Enviar</button>
+</body>
+</html>
