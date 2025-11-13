@@ -15,7 +15,6 @@ from routes.routes_users import routes_users
 from routes.routes_chatbot import chatbot_bp
 
 from config.config import DATABASE_CONNECTION_URI
-
 app = Flask(__name__)
 
 # Configuración base de datos
