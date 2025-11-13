@@ -147,9 +147,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 30px;      /* más alto y más ancho */
+  padding: 10px 30px; /* más alto y más ancho */
   box-sizing: border-box;
-  position: relative;      /* para el submenú */
+  position: relative; /* para el submenú */
 }
 
 .navbar-left {
@@ -172,13 +172,13 @@
   padding: 0 14px 0 8px;
   border-radius: 30px;
   margin-right: 25px;
-  height: 60px;            /* antes 50px */
+  height: 60px; /* antes 50px */
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .header-logo {
-  height: 34px;            /* antes 26px */
+  height: 34px; /* antes 26px */
   width: 34px;
   margin-right: 8px;
   display: block;
@@ -202,14 +202,14 @@
 .nav-item {
   color: var(--text-light);
   text-decoration: none;
-  padding: 8px 14px;       /* un poco más alto */
+  padding: 8px 14px; /* un poco más alto */
   margin: 0 4px;
   border-radius: 20px;
   transition: background-color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 36px;            /* antes 32px */
+  height: 36px; /* antes 32px */
   font-size: 0.9em;
   line-height: 1;
   box-sizing: border-box;
@@ -227,7 +227,7 @@
   display: flex;
   align-items: center;
   height: 100%;
-  position: relative;      /* para el submenú */
+  position: relative; /* para el submenú */
   cursor: pointer;
 }
 
@@ -237,18 +237,18 @@
 }
 
 .profile-icon {
-  width: 60px;              /* más grande */
+  width: 60px; /* más grande */
   height: 60px;
-  border-radius: 50%;       /* se mantiene redondo */
-  border: none;             /* SIN círculo/borde exterior */
+  border-radius: 50%; /* se mantiene redondo */
+  border: none; /* SIN círculo/borde exterior */
   background: none;
-  object-fit: cover;        /* la imagen llena bien el círculo */
+  object-fit: cover; /* la imagen llena bien el círculo */
   display: block;
 }
 
 .content-container {
   padding: 20px;
-  min-height: calc(100vh - 80px);  /* más alto porque la navbar creció */
+  min-height: calc(100vh - 80px); /* más alto porque la navbar creció */
   background-color: var(--main-bg-color);
 }
 
@@ -257,7 +257,7 @@
 /* Contenedor del menú */
 .user-menu {
   position: absolute;
-  top: 70px;           /* ajustado a la nueva altura de la navbar */
+  top: 70px; /* ajustado a la nueva altura de la navbar */
   right: 0;
   list-style: none;
   margin: 0;
@@ -267,7 +267,7 @@
   border-radius: 8px 0 8px 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   min-width: 180px;
-  display: none;       /* escondido por defecto */
+  display: none; /* escondido por defecto */
   z-index: 1000;
 }
 
@@ -298,4 +298,65 @@
 .user-menu li:last-child a {
   border-top: 1px solid #e0e0e0;
   margin-top: 4px;
+}
+
+/* ======== FLASH MESSAGES ======== */
+.perfil-alerts {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideDown 0.5s ease;
+}
+
+.alert {
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: opacity 1s ease;
+  animation: fadeOut 1s ease 4s forwards; /* Desaparece después de 4s */
+}
+
+/* Colores por categoría */
+.alert-success {
+  background-color: #28a745; /* verde */
+}
+
+.alert-error {
+  background-color: #dc3545; /* rojo */
+}
+
+.alert-warning {
+  background-color: #ffc107; /* amarillo */
+  color: #333;
+}
+
+.alert-info {
+  background-color: #17a2b8; /* celeste */
+}
+
+/* Animaciones */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

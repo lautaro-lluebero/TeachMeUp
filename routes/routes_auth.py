@@ -55,7 +55,7 @@ def login():
             session["username"] = user.nombre
             session["rol"] = user.rol
 
-            flash(f"Bienvenido, {user.nombre} ({user.rol})", "success")
+            flash(f"Bienvenido, {user.nombre}", "success")
             return render_template("layout.html")
         else:
             flash("Correo o contraseña incorrectos", "error")
