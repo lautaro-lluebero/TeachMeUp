@@ -3,6 +3,8 @@ from models.db import db
 from routes.routes_auth import routes_auth
 from routes.routes_main import routes_main
 from config.config import DATABASE_CONNECTION_URI
+
+
 # -----------------------------
 # Cargar configuración desde .env
 # -----------------------------
