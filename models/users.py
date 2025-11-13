@@ -9,7 +9,7 @@ class Users(db.Model):
     password = db.Column(db.String(200), nullable=False)
     rol = db.Column(db.String(50), nullable=False)
 
-    profesor = db.relationship("Profesor", back_populates="user", uselist=False)
+    profesor = db.relationship("Profesores", back_populates="user", uselist=False)
     alumno = db.relationship("Alumno", back_populates="user", uselist=False)
 
     def __init__(self,nombre,email, password, rol):
