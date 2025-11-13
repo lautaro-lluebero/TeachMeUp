@@ -298,4 +298,4 @@ def nuevo_usuario():
         return redirect(url_for("routes_users.configuracion"))
 
     # GET
-    return render_template("users/nuevo_usuario.html")
+    return render_template("users/nuevo_usuario.html")    

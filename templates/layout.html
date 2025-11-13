@@ -77,8 +77,9 @@
           <!-- ADMINISTRADOR Y PROFESOR: cargar servicio (ruta futura) -->
           {% if session.get('rol') in ['administrador', 'profesor'] %}
           <li>
-            <!-- Cambia "#" por url_for('routes_prof.cargar_servicio') cuando lo tengas -->
-            <a href="#">Cargar servicio</a>
+            <a href="{{ url_for('routes_profesores.cargar_servicio')}}"
+              >Cargar servicio</a
+            >
           </li>
           {% endif %}
 

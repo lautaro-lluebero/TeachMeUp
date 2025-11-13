@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: #f8f8f6;
   display: flex;
   align-items: center;
@@ -89,4 +89,125 @@ select {
 select option {
   background-color: #2f546d;
   color: white;
+}
+
+/* ======== FORMULARIO CARGAR SERVICIO ======== */
+.cargar-servicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f6;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  margin: 0; /* 🔹 evita margen en body */
+  padding: 0; /* 🔹 evita desplazamiento interno */
+  box-sizing: border-box;
+}
+
+.cargar-servicio * {
+  box-sizing: border-box; /* 🔹 evita que padding sume al ancho total */
+}
+
+.cargar-servicio .form-box {
+  background-color: #2f546d;
+  color: #fff;
+  padding: 35px 50px; /* un poco más de aire interno */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 420px; /* 🔹 más ancho */
+  max-width: 90%; /* 🔹 para que no se rompa en pantallas chicas */
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* 🔹 separa un poco más los campos */
+}
+
+.cargar-servicio .form-box h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* ======== CAMPOS ======== */
+.cargar-servicio label {
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+}
+
+.cargar-servicio input,
+.cargar-servicio textarea,
+.cargar-servicio select {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background-color: #3e6988;
+  color: #fff;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.cargar-servicio input::placeholder,
+.cargar-servicio textarea::placeholder {
+  color: #cfdde8;
+}
+
+.cargar-servicio textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+/* ======== SELECT ======== */
+.cargar-servicio select {
+  cursor: pointer;
+}
+
+.cargar-servicio select option {
+  background-color: #2f546d;
+  color: white;
+}
+
+/* ======== BOTÓN ======== */
+.cargar-servicio .btn-form,
+.cargar-servicio button[type="submit"] {
+  margin-top: 15px;
+  background-color: #fff;
+  color: #2f546d;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cargar-servicio .btn-form:hover,
+.cargar-servicio button[type="submit"]:hover {
+  background-color: #00b4d8;
+  color: white;
+}
+
+/* ======== ALERTAS ======== */
+.cargar-servicio .alert {
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.cargar-servicio .alert-success {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.cargar-servicio .alert-error,
+.cargar-servicio .alert-danger {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 480px) {
+  .cargar-servicio .form-box {
+    width: 90%;
+    padding: 25px;
+  }
 }

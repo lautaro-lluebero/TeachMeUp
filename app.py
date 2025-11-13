@@ -9,7 +9,8 @@ from models.alumnos import Alumno
 # Importar blueprints
 from routes.routes_auth import routes_auth
 from routes.routes_main import routes_main
-from routes.routes_users import routes_users   
+from routes.routes_users import routes_users 
+from routes.routes_profesores import routes_profesores   
 
 from config.config import DATABASE_CONNECTION_URI
 
@@ -24,12 +25,14 @@ db.init_app(app)
 
 # Crear base de datos si no existe
 with app.app_context():
+    #db.drop_all()
     db.create_all()
 
 # Registrar Blueprints
 app.register_blueprint(routes_auth)
 app.register_blueprint(routes_main)
 app.register_blueprint(routes_users)   
+app.register_blueprint(routes_profesores) 
 
 # Run the app
 if __name__ == "__main__":

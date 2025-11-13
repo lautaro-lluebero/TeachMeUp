@@ -62,3 +62,17 @@ def owner_or_admin(f):
         return redirect(url_for("routes_main.index"))
 
     return decorated_function
+
+def prof_required(f):
+    """
+    Requiere que el usuario sea profesor.
+    Rol esperado: 'profesor'
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        rol = (session.get("rol") or "").lower()
+        if rol != "profesor":
+            flash("No tienes permisos para realizar esta acción", "error")
+            return redirect(url_for("routes_main.index"))
+        return f(*args, **kwargs)
+    return decorated_function
