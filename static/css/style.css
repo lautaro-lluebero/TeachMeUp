@@ -172,7 +172,7 @@
   padding: 0 14px 0 8px;
   border-radius: 30px;
   margin-right: 25px;
-  height: 60px; /* antes 50px */
+  height: 55px; /* antes 50px */
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -202,15 +202,15 @@
 .nav-item {
   color: var(--text-light);
   text-decoration: none;
-  padding: 8px 14px; /* un poco más alto */
+  padding: 10px 20px; /* un poco más alto */
   margin: 0 4px;
   border-radius: 20px;
   transition: background-color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 36px; /* antes 32px */
-  font-size: 0.9em;
+  height: 42px; /* antes 32px */
+  font-size: 1.1em;
   line-height: 1;
   box-sizing: border-box;
 }
@@ -232,7 +232,7 @@
 }
 
 .user-info {
-  font-size: 0.9em;
+  font-size: 1.1em;
   margin-right: 15px;
 }
 
