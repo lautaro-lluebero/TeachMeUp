@@ -1,0 +1,94 @@
+/* HEADER */
+.profesores-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+/* BOTÓN FILTRO */
+.filtro-btn {
+    background: #DDE5EB;
+    border: 2px solid #000;
+    padding: 8px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.profesores-container {
+    position: relative; /* importante */
+    padding: 20px;
+}
+
+/* ========= PANEL FLOTANTE COMO EN TU CAPTURA ========= */
+.filtro-panel {
+    position: absolute;
+    top: 180px;   /* ajustá 100–140 para tu header */
+    right: 30px;
+    width: 300px;
+    background: #A8BCC9;
+    border-radius: 12px;
+    padding: 15px;
+    display: none;
+    z-index: 2000;
+}
+
+
+.filtro-panel.activo {
+    display: block;
+}
+
+/* SECCIONES DEL FILTRO */
+.filtro-section {
+    margin-bottom: 15px;
+}
+
+.filtro-titulo {
+    background: #8BA3B1;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.filtro-contenido {
+    background: #D1DEE6;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* ========= GRILLA DE PROFESORES (TU PROBLEMA REAL) ========= */
+.profesores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+    padding-top: 20px;
+}
+
+/* TARJETAS */
+.profe-card {
+    background: #A8BCC9;
+    border-radius: 12px;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+.profe-img {
+    background: #DCE6EB;
+    height: 150px;
+}
