@@ -1,0 +1,64 @@
+{% extends "layout.html" %} {% block titulo %}Servicio de {{
+servicio.nombre_profesor }}{% endblock %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/perfil_servicio.css') }}"
+/>
+{% endblock %} {% block contenido %}
+<div class="perfil-servicio-container">
+  <div class="perfil-header-nav">
+    <a href="{{ url_for('routes_main.index') }}" class="btn-volver"
+      >← Volver al inicio</a
+    >
+  </div>
+
+  <div class="botones-interaccion top-buttons">
+    <a
+      href="{{ url_for('routes_profesores.modificar_servicio') }}"
+      class="btn-modificar-servicio"
+    >
+      Modificar mi Servicio
+    </a>
+    <form
+      action="{{ url_for('routes_profesores.borrar_servicio') }}"
+      method="POST"
+      onsubmit="return confirm('¿Estás seguro de que quieres eliminar tu servicio? Esto lo borrará de los resultados de búsqueda. Podrás cargar uno nuevo más tarde.');"
+    >
+      <button type="submit" class="btn-borrar-servicio">
+        Eliminar Servicio
+      </button>
+    </form>
+  </div>
+
+  <div class="servicio-card">
+    <div class="columna-izquierda">
+      <img
+        src="{{ avatar_url }}"
+        alt="Foto de perfil del profesor"
+        class="profesor-img-placeholder"
+      />
+
+      <div class="info-adicional">
+        <p><strong>Modalidad:</strong> {{ servicio.modalidad }}</p>
+        <p><strong>Zona:</strong> {{ servicio.direccion }}</p>
+        <p><strong>Celular:</strong> {{ servicio.celular }}</p>
+        <p><strong>Precio/hora:</strong> ${{ servicio.precio_por_hora }}</p>
+      </div>
+    </div>
+
+    <div class="columna-central">
+      <h2 class="nombre-profesor">{{ servicio.nombre_profesor }}</h2>
+
+      <h3 class="categoria-nivel">
+        {{ servicio.categoria }} | {{ servicio.nivel }}
+      </h3>
+
+      <p class="descripcion-servicio">{{ servicio.descripcion }}</p>
+    </div>
+
+    <div class="columna-derecha">
+      <div class="mapa-placeholder">[Mapa de ubicación simulado]</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

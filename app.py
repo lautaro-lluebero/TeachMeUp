@@ -28,7 +28,7 @@ db.init_app(app)
 
 # Crear base de datos si no existe
 with app.app_context():
-    # db.drop_all()
+    #db.drop_all()
     db.create_all()
 
 # Registrar Blueprints existentes

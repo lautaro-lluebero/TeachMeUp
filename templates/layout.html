@@ -90,15 +90,17 @@
               >Cargar servicio</a
             >
           </li>
-          {% endif %} {% if session.get('rol') in ['administrador','profesor']
-          %}
+
+          </li>
+          {% endif %} 
+          
+          {% if session.get('rol') in ['administrador','profesor']%}
           <li>
-            <a href="{{ url_for('routes_profesores.modificar_servicio') }}"
-              >Modificar servicio</a
+            <a href="{{ url_for('routes_profesores.ver_servicio') }}"
+              >Ver servicio</a
             >
           </li>
           {% endif %}
-
           <li>
             <a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a>
           </li>

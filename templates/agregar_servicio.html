@@ -3,102 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cargar Servicio</title>
+    <title>Agregar Servicio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/servicios.css') }}"
     />
   </head>
-
   <body>
-    <div class="servicio-container">
-      <div class="servicio-box">
-        <h2>Agregar Servicio</h2>
+    <!-- Mensajes Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="perfil-alerts">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+    <div class="form-container">
+      <a href="{{ url_for('routes_main.index') }}" class="btn-volver"
+        >← Volver al inicio</a
+      >
 
-        <form
-          method="POST"
-          action="{{ url_for('routes_profesores.cargar_servicio') }}"
-        >
-          <div class="servicio-group">
-            <label for="nombre_profesor">Nombre del Profesor</label>
-            <input
-              type="text"
-              id="nombre_profesor"
-              name="nombre_profesor"
-              class="servicio-input"
-              value="{{ session['username'] }}"
-              required
-            />
-          </div>
+      <h1>Agregar Servicio</h1>
 
-          <div class="servicio-group">
-            <label for="categoria">Materia / Categoría</label>
-            <input
-              type="text"
-              id="categoria"
-              name="categoria"
-              class="servicio-input"
-              required
-            />
-          </div>
-
-          <div class="servicio-group">
-            <label for="descripcion">Descripción</label>
-            <textarea
-              id="descripcion"
-              name="descripcion"
-              class="servicio-textarea"
-              required
-            ></textarea>
-          </div>
-
-          <div class="servicio-group">
-            <label for="modalidad">Modalidad</label>
-            <select
-              id="modalidad"
-              name="modalidad"
-              class="servicio-select"
-              required
-            >
-              <option disabled selected>Seleccionar...</option>
-              <option value="presencial">Presencial</option>
-              <option value="virtual">Virtual</option>
-              <option value="mixta">Mixta</option>
-            </select>
-          </div>
-
-          <div class="servicio-group">
-            <label for="direccion">Dirección</label>
-            <input
-              type="text"
-              id="direccion"
-              name="direccion"
-              class="servicio-input"
-            />
-          </div>
-
-          <div class="servicio-group">
-            <label for="precio_por_hora">Precio por hora</label>
-            <input
-              type="number"
-              id="precio_por_hora"
-              name="precio_por_hora"
-              class="servicio-input"
-              required
-            />
-          </div>
-
-          <button type="submit" class="servicio-btn">Guardar Servicio</button>
-        </form>
-
-        <!-- Flash messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %} {% if
-        messages %} {% for category, message in messages %}
-        <div class="servicio-alert servicio-alert-{{ category }}">
-          {{ message }}
+      <form
+        action="{{ url_for('routes_profesores.cargar_servicio') }}"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="nombre_profesor">Nombre del Profesor</label>
+          <input
+            type="text"
+            id="nombre_profesor"
+            name="nombre_profesor"
+            required
+          />
         </div>
-        {% endfor %} {% endif %} {% endwith %}
-      </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="categoria" required>
+            <option value="" disabled selected>Selecciona una categoría</option>
+            {% for cat in categorias %}
+            <option value="{{ cat }}">{{ cat }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nivel">Nivel</label>
+          <select id="nivel" name="nivel" required>
+            <option value="" disabled selected>Selecciona el nivel</option>
+            {% for n in niveles %}
+            <option value="{{ n }}">{{ n }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="zona">Zona (Mendoza)</label>
+          <select id="zona" name="direccion" required>
+            <option value="" disabled selected>Selecciona una zona</option>
+            {% for z in zonas %}
+            <option value="{{ z }}">{{ z }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="modalidad">Modalidad</label>
+          <select id="modalidad" name="modalidad" required>
+            <option value="Virtual">Virtual</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Mixta" selected>Mixta</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="celular">Contacto</label>
+          <input type="text" id="celular" name="celular" required />
+        </div>
+
+        <div class="form-group">
+          <label for="precio_por_hora">Precio por hora</label>
+          <input
+            type="number"
+            id="precio_por_hora"
+            name="precio_por_hora"
+            min="0"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn-submit">Publicar Servicio</button>
+      </form>
     </div>
 
     <!-- Mensajes flash -->

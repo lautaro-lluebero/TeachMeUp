@@ -1,148 +1,101 @@
-body {
-  /* Fondo del body, similar al área fuera de la caja de login */
-  background-color: #f8f8f8;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+/* ===== FORMULARIOS SERVICIOS ===== */
+
+* {
   margin: 0;
-}
-
-.servicio-container {
-  /* Centra la caja y añade espacio si es necesario */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.servicio-box {
-  /* Estilo de la caja principal, similar a la del formulario de login */
-  background-color: #34495e; /* Azul oscuro/grisáceo */
-  padding: 40px 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 450px; /* Ancho máximo para el formulario */
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-.servicio-box h2 {
-  /* Estilo del título */
-  color: #ecf0f1; /* Blanco/Gris claro */
+body {
+  background-color: #f2f5f7;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 30px;
+  margin: 40px auto;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e8eef3;
+}
+
+.form-container h1 {
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8em;
+  margin-bottom: 25px;
+  font-size: 28px;
   font-weight: 600;
+  color: #2c4a5c;
 }
 
-/* ---------------------------------------------------- */
-/* Estilos de los Grupos de Formulario (Labels & Inputs) */
-/* ---------------------------------------------------- */
-
-.servicio-group {
+.form-group {
   margin-bottom: 20px;
 }
 
-.servicio-group label {
-  /* Estilo de las etiquetas */
+.form-group label {
   display: block;
-  margin-bottom: 8px;
-  color: #bdc3c7; /* Gris claro para las etiquetas */
-  font-weight: 400;
-  font-size: 0.95em;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2c4a5c;
 }
 
-/* Estilos comunes para todos los campos de entrada, select y textarea */
-.servicio-input,
-.servicio-select,
-.servicio-textarea {
+.form-group input,
+.form-group select,
+.form-group textarea {
   width: 100%;
   padding: 12px;
-  margin-bottom: 0;
-  border: none;
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 1em;
-  color: #ecf0f1; /* Color del texto que se escribe */
-  /* Fondo del input, un tono un poco más claro que la caja */
-  background-color: #4a627a;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  border: 1.5px solid #c8d6df;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: 0.2s;
 }
 
-.servicio-input:focus,
-.servicio-select:focus,
-.servicio-textarea:focus {
-  /* Efecto al enfocar */
-  background-color: #5d7893;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #ecf0f1; /* Borde de enfoque sutil */
+  border-color: #5d98bc;
+  box-shadow: 0 0 5px rgba(93, 152, 188, 0.4);
 }
 
-/* Estilo específico para el textarea */
-.servicio-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* Estilo para el select, para que se vea bien dentro del tema */
-.servicio-select option {
-  /* Asegurarse que las opciones sean legibles en el fondo oscuro */
-  background-color: #34495e;
-  color: #ecf0f1;
-}
-
-/* ---------------------------------------------------- */
-/* Estilos del Botón de Enviar (Submit Button)          */
-/* ---------------------------------------------------- */
-
-.servicio-btn {
+.btn-submit {
   width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  font-weight: bold;
-  cursor: pointer;
+  padding: 12px;
   margin-top: 10px;
-  /* Colores del botón de la imagen (fondo blanco, texto oscuro) */
-  background-color: #ffffff;
-  color: #34495e;
-  transition: background-color 0.3s, color 0.3s, transform 0.1s;
+  border: none;
+  border-radius: 10px;
+  background-color: #2c4a5c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.servicio-btn:hover {
-  background-color: #e0e0e0;
+.btn-submit:hover {
+  background-color: #5d98bc;
 }
 
-.servicio-btn:active {
-  transform: scale(0.99);
+.btn-volver {
+  display: inline-block;
+  padding: 10px 16px;
+  background-color: #5d98bc;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
-/* ---------------------------------------------------- */
-/* FLASH MESSAGES (Adaptado a las clases del HTML)      */
-/* ---------------------------------------------------- */
-
-/* El contenedor principal de los alerts debe ir fuera del .servicio-box en el HTML para que el fixed funcione correctamente.
-   Como no puedo modificar la estructura de tu HTML (donde el alert está dentro del .servicio-box),
-   el efecto 'fixed' no funcionará correctamente. Sin embargo, aplicaré la animación.
-   Si quieres el efecto 'fixed', tendrías que envolver tus alerts con un div fuera del .servicio-box y usar el selector original:
-   
-   {% with messages = get_flashed_messages(with_categories=true) %}
-     {% if messages %}
-       <div class="perfil-alerts"> <--- Este es el contenedor que necesita el estilo "fixed"
-         {% for category, message in messages %}
-           <div class="servicio-alert servicio-alert-{{ category }}">...</div>
-         {% endfor %}
-       </div>
-     {% endif %}
-   {% endwith %}
-*/
-
-/* Contenedor de Alertas (para que se apilen correctamente si se modifica el HTML) */
+.btn-volver:hover {
+  background-color: #2c4a5c;
+}
+/* ======== FLASH MESSAGES ======== */
 .perfil-alerts {
-  /* Esta clase no existe en tu HTML, pero se incluye por si se añade después */
   position: fixed;
   top: 20px;
   right: 20px;
@@ -153,7 +106,7 @@ body {
   animation: slideDown 0.5s ease;
 }
 
-.servicio-alert {
+.alert {
   padding: 12px 20px;
   border-radius: 8px;
   color: #fff;
@@ -162,28 +115,25 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   opacity: 1;
   transition: opacity 1s ease;
-  /* Aplicar la animación de desaparición. El `forwards` es clave. */
-  animation: fadeOut 1s ease 4s forwards;
+  animation: fadeOut 1s ease 4s forwards; /* Desaparece después de 4s */
 }
 
-/* Colores por categoría (usando las clases de tu HTML) */
-.servicio-alert-success {
+/* Colores por categoría */
+.alert-success {
   background-color: #28a745; /* verde */
 }
 
-.servicio-alert-error,
-.servicio-alert-danger {
-  /* Asumiendo que 'error' y 'danger' usan el mismo color */
+.alert-error {
   background-color: #dc3545; /* rojo */
 }
 
-.servicio-alert-warning {
+.alert-warning {
   background-color: #ffc107; /* amarillo */
-  color: #333; /* Texto oscuro para el fondo amarillo */
+  color: #333;
 }
 
-.servicio-alert-info {
-  background-color: #17a2b8; /* celeste/info */
+.alert-info {
+  background-color: #17a2b8; /* celeste */
 }
 
 /* Animaciones */

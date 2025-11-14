@@ -1,105 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modificar Servicio</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/servicios.css') }}">
 </head>
-
 <body>
 
-  <div class="servicio-container">
-    <div class="servicio-box">
-      <h2>Modificar Servicio</h2>
-
-      <form method="POST" action="{{ url_for('routes_profesores.modificar_servicio', id=servicio.id) }}">
-
-        <div class="servicio-group">
-          <label for="nombre_profesor">Nombre del Profesor</label>
-          <input
-            type="text"
-            id="nombre_profesor"
-            name="nombre_profesor"
-            class="servicio-input"
-            value="{{ servicio.nombre_profesor }}"
-            required
-          >
-        </div>
-
-        <div class="servicio-group">
-          <label for="categoria">Materia / Categoría</label>
-          <input
-            type="text"
-            id="categoria"
-            name="categoria"
-            class="servicio-input"
-            value="{{ servicio.categoria }}"
-            required
-          >
-        </div>
-
-        <div class="servicio-group">
-          <label for="descripcion">Descripción</label>
-          <textarea
-            id="descripcion"
-            name="descripcion"
-            class="servicio-textarea"
-            required
-          >{{ servicio.descripcion }}</textarea>
-        </div>
-
-        <div class="servicio-group">
-          <label for="modalidad">Modalidad</label>
-          <select id="modalidad" name="modalidad" class="servicio-select" required>
-            <option value="presencial" {% if servicio.modalidad == 'presencial' %}selected{% endif %}>Presencial</option>
-            <option value="virtual" {% if servicio.modalidad == 'virtual' %}selected{% endif %}>Virtual</option>
-            <option value="mixta" {% if servicio.modalidad == 'mixta' %}selected{% endif %}>Mixta</option>
-          </select>
-        </div>
-
-        <div class="servicio-group">
-          <label for="direccion">Dirección</label>
-          <input
-            type="text"
-            id="direccion"
-            name="direccion"
-            class="servicio-input"
-            value="{{ servicio.direccion }}"
-          >
-        </div>
-
-        <div class="servicio-group">
-          <label for="precio_por_hora">Precio por hora</label>
-          <input
-            type="number"
-            id="precio_por_hora"
-            name="precio_por_hora"
-            class="servicio-input"
-            value="{{ servicio.precio_por_hora }}"
-            required
-          >
-        </div>
-
-        <button type="submit" class="servicio-btn">Actualizar Servicio</button>
-      </form>
-
-      <!-- Flash messages -->
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="servicio-alert servicio-alert-{{ category }}">
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-
+  <!-- Mensajes Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="perfil-alerts">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
     </div>
-  </div>
+    {% endif %} {% endwith %}
 
-   <!-- Mensajes flash -->
+<div class="form-container">
+  <a href="{{ url_for('routes_main.index') }}" class="btn-volver">← Volver al inicio</a>
+
+  <h1>Modificar Servicio</h1>
+
+  <form action="{{ url_for('routes_profesores.modificar_servicio') }}" method="POST">
+    <div class="form-group">
+      <label for="nombre_profesor">Nombre del Profesor</label>
+      <input type="text" id="nombre_profesor" name="nombre_profesor" value="{{ servicio.nombre_profesor }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" name="categoria" required>
+        {% for cat in categorias %}
+          <option value="{{ cat }}" {% if servicio.categoria == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="nivel">Nivel</label>
+      <select id="nivel" name="nivel" required>
+        {% for n in niveles %}
+          <option value="{{ n }}" {% if servicio.nivel == n %}selected{% endif %}>{{ n }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="zona">Zona (Mendoza)</label>
+      <select id="zona" name="direccion" required>
+        {% for z in zonas %}
+          <option value="{{ z }}" {% if servicio.direccion == z %}selected{% endif %}>{{ z }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="modalidad">Modalidad</label>
+      <select id="modalidad" name="modalidad" required>
+        <option value="Virtual" {% if servicio.modalidad == 'Virtual' %}selected{% endif %}>Virtual</option>
+        <option value="Presencial" {% if servicio.modalidad == 'Presencial' %}selected{% endif %}>Presencial</option>
+        <option value="Mixta" {% if servicio.modalidad == 'Mixta' or servicio.modalidad == None %}selected{% endif %}>Mixta</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" name="descripcion" rows="4" required>{{ servicio.descripcion }}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="celular">Contacto</label>
+      <input type="text" id="celular" name="celular" value="{{ servicio.celular }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="precio_por_hora">Precio por hora</label>
+      <input type="number" id="precio_por_hora" name="precio_por_hora" value="{{ servicio.precio_por_hora }}" min="0" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Actualizar Servicio</button>
+  </form>
+</div>
+    <!-- Mensajes flash -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const alerts = document.querySelectorAll(".alert");
@@ -110,6 +95,6 @@
           }, 4000);
         });
       });
-    </script>
+  </script>
 </body>
 </html>
