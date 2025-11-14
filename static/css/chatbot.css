@@ -1,0 +1,108 @@
+/* --- BURBUJA flotante --- */
+#chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4a86ff;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: transform 0.2s;
+}
+
+#chatbot-button:hover {
+    transform: scale(1.1);
+}
+
+/* --- Ventana del chatbot --- */
+#chatbot-window {
+    position: fixed;
+    bottom: 95px;
+    right: 20px;
+    width: 340px;
+    height: 420px;
+    background: #ffffff;
+    border-radius: 12px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* Header */
+#chatbot-header {
+    background: #4a86ff;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbot-close {
+    cursor: pointer;
+}
+
+/* Área de mensajes */
+#chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #f4f6ff;
+}
+
+/* Burbujas */
+.message-user {
+    background: #4a86ff;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    max-width: 80%;
+    align-self: flex-end;
+}
+
+.message-bot {
+    background: #e8eaff;
+    color: #000;
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    max-width: 80%;
+    align-self: flex-start;
+}
+
+/* Input */
+#chatbot-input-area {
+    display: flex;
+    padding: 8px;
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+}
+
+#chatbot-input {
+    flex: 1;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+#chatbot-send {
+    margin-left: 6px;
+    padding: 6px 10px;
+    background: #4a86ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}

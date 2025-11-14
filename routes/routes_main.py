@@ -9,4 +9,4 @@ def index():
         return render_template("index.html") 
     
     # Si está logueado, muestra la página de inicio del usuario
-    return render_template("layout.html")
+    return render_template("principal.html")

@@ -4,14 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block titulo %}TeachMeUp{% endblock %}</title>
+
+    <!-- CSS general -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
-    {% block extra_css %}{% endblock %}
+
+    <!-- CSS del chatbot -->
+    {% if session.get('logged_in') %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chatbot.css') }}"
+    />
+    {% endif %} {% block extra_css %}{% endblock %}
   </head>
 
   <body class="layout-body">
+    <!-- PASAR ROL Y USUARIO A JAVASCRIPT -->
+    <script>
+      const USER_ROLE = "{{ session.get('rol', '').lower() }}";
+      const USER_NAME = "{{ session.get('username', '') }}";
+    </script>
+
     <!-- Mensajes Flash -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
@@ -21,9 +36,11 @@
       {% endfor %}
     </div>
     {% endif %} {% endwith %}
+
+    <!-- NAVBAR -->
     <header class="navbar">
       <div class="navbar-left">
-        <!-- Logo que lleva al inicio logueado -->
+        <!-- Logo -->
         <a href="{{ url_for('routes_main.index') }}" class="logo-link">
           <div class="logo-brand-container">
             <img
@@ -35,55 +52,45 @@
           </div>
         </a>
 
-        <!-- Menú principal -->
+        <!-- Links principales -->
         <nav class="nav-links">
-          <a href="{{ url_for('routes_main.index') }}" class="nav-item active">
-            Inicio
-          </a>
-
-          <!-- Cuando tengas la vista de profesores, cambias el href -->
+          <a href="{{ url_for('routes_main.index') }}" class="nav-item active"
+            >Inicio</a
+          >
           <a href="#" class="nav-item">Profesores</a>
         </nav>
       </div>
 
-      <!-- Parte derecha: usuario + submenú -->
+      <!-- Usuario -->
       <div class="navbar-right" id="user-menu-toggle">
         <span class="user-info">
           {{ session.get('username', 'Usuario') }} ({{ session.get('rol', 'rol')
           }})
         </span>
 
-        {# Avatar (en el futuro puedes guardar session['avatar_url']) #} {% set
-        avatar = session.get('avatar_url') or url_for('static',
+        {% set avatar = session.get('avatar_url') or url_for('static',
         filename='img/perfil.png') %}
         <img src="{{ avatar }}" alt="Foto de perfil" class="profile-icon" />
 
-        <!-- Submenú de usuario -->
+        <!-- Menú desplegable -->
         <ul class="user-menu" id="user-menu">
-          <!-- Visible para todos -->
-          <li>
-            <a href="{{ url_for('routes_users.perfil') }}">Perfil</a>
-          </li>
+          <li><a href="{{ url_for('routes_users.perfil') }}">Perfil</a></li>
 
-          <!-- SOLO ADMINISTRADOR: configuración -->
           {% if session.get('rol') == 'administrador' %}
           <li>
             <a href="{{ url_for('routes_users.configuracion') }}"
               >Configuración</a
             >
           </li>
-          {% endif %}
-
-          <!-- ADMINISTRADOR Y PROFESOR: cargar servicio (ruta futura) -->
-          {% if session.get('rol') in ['administrador', 'profesor'] %}
+          {% endif %} {% if session.get('rol') in ['administrador', 'profesor']
+          %}
           <li>
-            <a href="{{ url_for('routes_profesores.cargar_servicio')}}"
+            <a href="{{ url_for('routes_profesores.cargar_servicio') }}"
               >Cargar servicio</a
             >
           </li>
           {% endif %}
 
-          <!-- Cerrar sesión: todos -->
           <li>
             <a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a>
           </li>
@@ -91,8 +98,10 @@
       </div>
     </header>
 
+    <!-- Contenido -->
     <main class="content-container">{% block contenido %}{% endblock %}</main>
-    <!-- Clic del submenu-->
+
+    <!-- Scripts del navbar -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const toggle = document.getElementById("user-menu-toggle");
@@ -105,18 +114,17 @@
           menu.classList.toggle("open");
         });
 
-        // Cierra el menú al hacer clic fuera
         document.addEventListener("click", function () {
           menu.classList.remove("open");
         });
 
-        // Evita que un clic dentro del menú lo cierre
         menu.addEventListener("click", function (e) {
           e.stopPropagation();
         });
       });
     </script>
-    <!-- Desaparicion de mensajes flash -->
+
+    <!-- Mensajes flash -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const alerts = document.querySelectorAll(".alert");
@@ -128,5 +136,32 @@
         });
       });
     </script>
+
+    <!-- CHATBOT flotante -->
+    {% if session.get('rol', '').lower() == 'alumno' %}
+
+    <div id="chatbot-button">💬</div>
+
+    <div id="chatbot-window">
+      <div id="chatbot-header">
+        Chatea con TeachMeBot
+        <span id="chatbot-close">✖</span>
+      </div>
+
+      <div id="chatbot-messages"></div>
+
+      <div id="chatbot-input-area">
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Escribí tu mensaje..."
+        />
+        <button id="chatbot-send">Enviar</button>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+
+    {% endif %}
   </body>
 </html>
