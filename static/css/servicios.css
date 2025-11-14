@@ -1,0 +1,206 @@
+body {
+  /* Fondo del body, similar al área fuera de la caja de login */
+  background-color: #f8f8f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.servicio-container {
+  /* Centra la caja y añade espacio si es necesario */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.servicio-box {
+  /* Estilo de la caja principal, similar a la del formulario de login */
+  background-color: #34495e; /* Azul oscuro/grisáceo */
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px; /* Ancho máximo para el formulario */
+  box-sizing: border-box;
+}
+
+.servicio-box h2 {
+  /* Estilo del título */
+  color: #ecf0f1; /* Blanco/Gris claro */
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------- */
+/* Estilos de los Grupos de Formulario (Labels & Inputs) */
+/* ---------------------------------------------------- */
+
+.servicio-group {
+  margin-bottom: 20px;
+}
+
+.servicio-group label {
+  /* Estilo de las etiquetas */
+  display: block;
+  margin-bottom: 8px;
+  color: #bdc3c7; /* Gris claro para las etiquetas */
+  font-weight: 400;
+  font-size: 0.95em;
+}
+
+/* Estilos comunes para todos los campos de entrada, select y textarea */
+.servicio-input,
+.servicio-select,
+.servicio-textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1em;
+  color: #ecf0f1; /* Color del texto que se escribe */
+  /* Fondo del input, un tono un poco más claro que la caja */
+  background-color: #4a627a;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.servicio-input:focus,
+.servicio-select:focus,
+.servicio-textarea:focus {
+  /* Efecto al enfocar */
+  background-color: #5d7893;
+  outline: none;
+  box-shadow: 0 0 0 2px #ecf0f1; /* Borde de enfoque sutil */
+}
+
+/* Estilo específico para el textarea */
+.servicio-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Estilo para el select, para que se vea bien dentro del tema */
+.servicio-select option {
+  /* Asegurarse que las opciones sean legibles en el fondo oscuro */
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+/* ---------------------------------------------------- */
+/* Estilos del Botón de Enviar (Submit Button)          */
+/* ---------------------------------------------------- */
+
+.servicio-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  /* Colores del botón de la imagen (fondo blanco, texto oscuro) */
+  background-color: #ffffff;
+  color: #34495e;
+  transition: background-color 0.3s, color 0.3s, transform 0.1s;
+}
+
+.servicio-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.servicio-btn:active {
+  transform: scale(0.99);
+}
+
+/* ---------------------------------------------------- */
+/* FLASH MESSAGES (Adaptado a las clases del HTML)      */
+/* ---------------------------------------------------- */
+
+/* El contenedor principal de los alerts debe ir fuera del .servicio-box en el HTML para que el fixed funcione correctamente.
+   Como no puedo modificar la estructura de tu HTML (donde el alert está dentro del .servicio-box),
+   el efecto 'fixed' no funcionará correctamente. Sin embargo, aplicaré la animación.
+   Si quieres el efecto 'fixed', tendrías que envolver tus alerts con un div fuera del .servicio-box y usar el selector original:
+   
+   {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+       <div class="perfil-alerts"> <--- Este es el contenedor que necesita el estilo "fixed"
+         {% for category, message in messages %}
+           <div class="servicio-alert servicio-alert-{{ category }}">...</div>
+         {% endfor %}
+       </div>
+     {% endif %}
+   {% endwith %}
+*/
+
+/* Contenedor de Alertas (para que se apilen correctamente si se modifica el HTML) */
+.perfil-alerts {
+  /* Esta clase no existe en tu HTML, pero se incluye por si se añade después */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideDown 0.5s ease;
+}
+
+.servicio-alert {
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: opacity 1s ease;
+  /* Aplicar la animación de desaparición. El `forwards` es clave. */
+  animation: fadeOut 1s ease 4s forwards;
+}
+
+/* Colores por categoría (usando las clases de tu HTML) */
+.servicio-alert-success {
+  background-color: #28a745; /* verde */
+}
+
+.servicio-alert-error,
+.servicio-alert-danger {
+  /* Asumiendo que 'error' y 'danger' usan el mismo color */
+  background-color: #dc3545; /* rojo */
+}
+
+.servicio-alert-warning {
+  background-color: #ffc107; /* amarillo */
+  color: #333; /* Texto oscuro para el fondo amarillo */
+}
+
+.servicio-alert-info {
+  background-color: #17a2b8; /* celeste/info */
+}
+
+/* Animaciones */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

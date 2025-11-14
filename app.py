@@ -1,4 +1,4 @@
-from flask import Flask, render_template 
+from flask import Flask, render_template
 from models.db import db
 
 # Importar modelos para que SQLAlchemy conozca todas las clases

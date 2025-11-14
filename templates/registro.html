@@ -1,44 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Crear cuenta | TeachMeUp</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/formularios.css') }}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crear cuenta | TeachMeUp</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/formularios.css') }}"
+    />
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="perfil-alerts">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+    <div class="form-container">
+      <form
+        action="{{ url_for('routes_auth.registro') }}"
+        method="POST"
+        class="form-box"
+      >
+        <h2>Crear cuenta</h2>
 
-  <div class="form-container">
-    <form action="{{ url_for('routes_auth.registro') }}" method="POST" class="form-box">
-      <h2>Crear cuenta</h2>
+        <label for="nombre">Usuario</label>
+        <input type="text" id="nombre" name="nombre" required />
 
-      <label for="nombre">Usuario</label>
-      <input type="text" id="nombre" name="nombre" required>
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required />
 
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" name="email" required>
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" required />
 
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" required>
+        <label for="repassword">Repetir Contraseña</label>
+        <input type="password" id="repassword" name="repassword" required />
 
-      <label for="repassword">Repetir Contraseña</label>
-      <input type="password" id="repassword" name="repassword" required>
+        <label for="rol">Rol</label>
+        <select id="rol" name="rol" required>
+          <option value="">Seleccionar rol...</option>
+          <option value="alumno">Alumno</option>
+          <option value="profesor">Profesor</option>
+          <option value="administrador">Administrador</option>
+        </select>
 
-      <label for="rol">Rol</label>
-      <select id="rol" name="rol" required>
-        <option value="">Seleccionar rol...</option>
-        <option value="alumno">Alumno</option>
-        <option value="profesor">Profesor</option>
-        <option value="administrador">Administrador</option>
-      </select>
+        <button type="submit" class="btn-form">Crear</button>
 
-      <button type="submit" class="btn-form">Crear</button>
+        <p class="nota">
+          Vamos a compartir tu nombre. Nunca envíes tus contraseñas.<br />
+          Obtené más información sobre cómo gestionamos tus datos personales.
+        </p>
+      </form>
+    </div>
 
-      <p class="nota">
-        Vamos a compartir tu nombre. Nunca envíes tus contraseñas.<br>
-        Obtené más información sobre cómo gestionamos tus datos personales.
-      </p>
-    </form>
-  </div>
-
-</body>
+    <!-- Mensajes flash -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const alerts = document.querySelectorAll(".alert");
+        alerts.forEach((alert) => {
+          setTimeout(() => {
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 1000);
+          }, 4000);
+        });
+      });
+    </script>
+  </body>
 </html>

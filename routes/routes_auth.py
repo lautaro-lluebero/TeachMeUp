@@ -56,7 +56,7 @@ def login():
             session["rol"] = user.rol
 
             flash(f"Bienvenido, {user.nombre}", "success")
-            return render_template("layout.html")
+            return render_template("principal.html")
         else:
             flash("Correo o contraseña incorrectos", "error")
             return redirect(url_for("routes_auth.login"))

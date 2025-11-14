@@ -3,75 +3,86 @@ from models.db import db
 from models.profesores import Profesores
 from decorators import prof_required, login_required
 
-routes_profesores= Blueprint("routes_profesores", __name__, url_prefix="/Profesores")
+routes_profesores = Blueprint("routes_profesores", __name__, url_prefix="/Profesores")
 
-@routes_profesores.route("/CargarServicio",methods=["GET", "POST"])
+@routes_profesores.route("/CargarServicio", methods=["GET", "POST"])
 @prof_required
 @login_required
 def cargar_servicio():
-    nombre_profesor = categoria = descripcion = modalidad = direccion = precio = None
     profesor_id = session.get("user_id")
-    profesor_nombre = session.get("username")
-    
+
+    # Si ya tiene servicio → que vaya a modificar
+    servicio_existente = Profesores.query.get(profesor_id)
+    if servicio_existente:
+        return redirect(url_for("routes_profesores.modificar_servicio"))
+
     if request.method == "GET":
-        profesor_id = session.get("user_id")
-        print(f"ID en sesión: {profesor_id}")
-        servicio_existente = Profesores.query.get(profesor_id)
-        print(f"Servicio encontrado: {servicio_existente}")
-        return render_template("cargar_servicio.html", servicio=servicio_existente)
+        return render_template("agregar_servicio.html")
 
-    if request.method == "POST":
-        nombre_profesor = request.form.get("nombre_profesor", "").strip()
-        categoria = request.form.get("categoria", "").strip()
-        descripcion = request.form.get("descripcion", "").strip()
-        modalidad = request.form.get("modalidad", "").strip()
-        direccion = request.form.get("direccion", "").strip()
-        precio = request.form.get("precio_por_hora", "").strip()
+    # POST
+    nombre_profesor = request.form.get("nombre_profesor", "").strip()
+    categoria = request.form.get("categoria", "").strip()
+    descripcion = request.form.get("descripcion", "").strip()
+    modalidad = request.form.get("modalidad", "").strip()
+    direccion = request.form.get("direccion", "").strip()
+    precio = request.form.get("precio_por_hora", "").strip()
 
-    # Validar campos obligatorios
     if not all([nombre_profesor, categoria, descripcion, modalidad, direccion, precio]):
-        return render_template(
-            "cargar_servicio.html",
-            error="Todos los campos son obligatorios."
-        )
+        flash("Todos los campos son obligatorios.", "error")
+        return redirect(url_for("routes_profesores.cargar_servicio"))
 
-    # Validar que el precio sea número
     try:
         precio = int(precio)
     except ValueError:
-        return render_template(
-            "cargar_servicio.html",
-            error="El precio debe ser un número entero."
-        )
+        flash("El precio debe ser un número.", "error")
+        return redirect(url_for("routes_profesores.cargar_servicio"))
 
-    # Buscar si ya tiene servicio cargado
-    servicio = Profesores.query.filter_by(id=profesor_id).first()
+    nuevo_servicio = Profesores(
+        id=profesor_id,
+        nombre_profesor=nombre_profesor,
+        categoria=categoria,
+        descripcion=descripcion,
+        modalidad=modalidad,
+        direccion=direccion,
+        precio_por_hora=precio,
+    )
 
-    if servicio:
-        # 🔁 Actualizar servicio existente
-        servicio.nombre_profesor = nombre_profesor
-        servicio.categoria = categoria
-        servicio.descripcion = descripcion
-        servicio.modalidad = modalidad
-        servicio.direccion = direccion
-        servicio.precio_por_hora = precio
-        db.session.commit()
-        flash("Servicio actualizado correctamente", "success")
-    else:
-        # 🆕 Crear nuevo servicio
-        nuevo_servicio = Profesores(
-            id=profesor_id,
-            nombre_profesor=nombre_profesor,
-            categoria=categoria,
-            descripcion=descripcion,
-            modalidad=modalidad,
-            direccion=direccion,
-            precio_por_hora=precio
-        )
-        db.session.add(nuevo_servicio)
-        db.session.commit()
-        flash("Servicio cargado correctamente", "success")
+    db.session.add(nuevo_servicio)
+    db.session.commit()
 
-    # 🔄 Redirigir para recargar el formulario con los datos actualizados
-    return redirect(url_for("routes_profesores.cargar_servicio"))
+    flash("Servicio cargado correctamente.", "success")
+    return redirect(url_for("routes_profesores.modificar_servicio"))
 
+
+@routes_profesores.route("/ModificarServicio", methods=["GET", "POST"])
+@prof_required
+@login_required
+def modificar_servicio():
+    profesor_id = session.get("user_id")
+
+    servicio = Profesores.query.get(profesor_id)
+    if not servicio:
+        # Si no tiene servicio → enviarlo a agregar
+        return redirect(url_for("routes_profesores.cargar_servicio"))
+
+    if request.method == "GET":
+        return render_template("modificar_servicio.html", servicio=servicio)
+
+    # POST → actualizar
+    servicio.nombre_profesor = request.form.get("nombre_profesor", "").strip()
+    servicio.categoria = request.form.get("categoria", "").strip()
+    servicio.descripcion = request.form.get("descripcion", "").strip()
+    servicio.modalidad = request.form.get("modalidad", "").strip()
+    servicio.direccion = request.form.get("direccion", "").strip()
+
+    precio = request.form.get("precio_por_hora", "").strip()
+    try:
+        servicio.precio_por_hora = int(precio)
+    except:
+        flash("El precio debe ser un número.", "error")
+        return redirect(url_for("routes_profesores.modificar_servicio"))
+
+    db.session.commit()
+    flash("Servicio actualizado correctamente.", "success")
+
+    return redirect(url_for("routes_profesores.modificar_servicio"))

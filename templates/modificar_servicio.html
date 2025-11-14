@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modificar Servicio</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/servicios.css') }}">
+</head>
+
+<body>
+
+  <div class="servicio-container">
+    <div class="servicio-box">
+      <h2>Modificar Servicio</h2>
+
+      <form method="POST" action="{{ url_for('routes_profesores.modificar_servicio', id=servicio.id) }}">
+
+        <div class="servicio-group">
+          <label for="nombre_profesor">Nombre del Profesor</label>
+          <input
+            type="text"
+            id="nombre_profesor"
+            name="nombre_profesor"
+            class="servicio-input"
+            value="{{ servicio.nombre_profesor }}"
+            required
+          >
+        </div>
+
+        <div class="servicio-group">
+          <label for="categoria">Materia / Categoría</label>
+          <input
+            type="text"
+            id="categoria"
+            name="categoria"
+            class="servicio-input"
+            value="{{ servicio.categoria }}"
+            required
+          >
+        </div>
+
+        <div class="servicio-group">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            class="servicio-textarea"
+            required
+          >{{ servicio.descripcion }}</textarea>
+        </div>
+
+        <div class="servicio-group">
+          <label for="modalidad">Modalidad</label>
+          <select id="modalidad" name="modalidad" class="servicio-select" required>
+            <option value="presencial" {% if servicio.modalidad == 'presencial' %}selected{% endif %}>Presencial</option>
+            <option value="virtual" {% if servicio.modalidad == 'virtual' %}selected{% endif %}>Virtual</option>
+            <option value="mixta" {% if servicio.modalidad == 'mixta' %}selected{% endif %}>Mixta</option>
+          </select>
+        </div>
+
+        <div class="servicio-group">
+          <label for="direccion">Dirección</label>
+          <input
+            type="text"
+            id="direccion"
+            name="direccion"
+            class="servicio-input"
+            value="{{ servicio.direccion }}"
+          >
+        </div>
+
+        <div class="servicio-group">
+          <label for="precio_por_hora">Precio por hora</label>
+          <input
+            type="number"
+            id="precio_por_hora"
+            name="precio_por_hora"
+            class="servicio-input"
+            value="{{ servicio.precio_por_hora }}"
+            required
+          >
+        </div>
+
+        <button type="submit" class="servicio-btn">Actualizar Servicio</button>
+      </form>
+
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="servicio-alert servicio-alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+    </div>
+  </div>
+
+   <!-- Mensajes flash -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const alerts = document.querySelectorAll(".alert");
+        alerts.forEach((alert) => {
+          setTimeout(() => {
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 1000);
+          }, 4000);
+        });
+      });
+    </script>
+</body>
+</html>

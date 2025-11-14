@@ -89,6 +89,13 @@
               >Cargar servicio</a
             >
           </li>
+          {% endif %} {% if session.get('rol') in ['administrador','profesor']
+          %}
+          <li>
+            <a href="{{ url_for('routes_profesores.modificar_servicio') }}"
+              >Modificar servicio</a
+            >
+          </li>
           {% endif %}
 
           <li>
