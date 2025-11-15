@@ -216,7 +216,7 @@ from flask import Blueprint, render_template
 
 routes_profesores = Blueprint('routes_profesores', __name__)
 
-@routes_profesores.route("/mapa")
-def mapa():
+@routes_profesores.route("/mapa", endpoint="mapa_profes")
+def mapa_profes():
     return render_template("mapaProf.html")
 
