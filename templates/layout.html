@@ -6,110 +6,81 @@
     <title>{% block titulo %}TeachMeUp{% endblock %}</title>
 
     <!-- CSS general -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 
     <!-- CSS del chatbot -->
     {% if session.get('logged_in') %}
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/chatbot.css') }}"
-    />
-    {% endif %} {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}" />
+    {% endif %}
+
+    <!-- Bloque extendible para CSS adicional -->
+    {% block extra_css %}{% endblock %}
   </head>
 
   <body class="layout-body">
-    <!-- PASAR ROL Y USUARIO A JAVASCRIPT -->
+
+    <!-- PASAR ROL Y USUARIO A JS -->
     <script>
       const USER_ROLE = "{{ session.get('rol', '').lower() }}";
       const USER_NAME = "{{ session.get('username', '') }}";
     </script>
 
-    <!-- Mensajes Flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %}
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
     <div class="perfil-alerts">
       {% for category, message in messages %}
       <div class="alert alert-{{ category }}">{{ message }}</div>
       {% endfor %}
     </div>
-    {% endif %} {% endwith %}
+    {% endif %}
+    {% endwith %}
 
     <!-- NAVBAR -->
     <header class="navbar">
       <div class="navbar-left">
-        <!-- Logo -->
         <a href="{{ url_for('routes_main.index') }}" class="logo-link">
           <div class="logo-brand-container">
-            <img
-              src="{{ url_for('static', filename='img/logoTeachMeUp.png') }}"
-              alt="TeachMeUp Logo"
-              class="header-logo"
-            />
+            <img src="{{ url_for('static', filename='img/logoTeachMeUp.png') }}" alt="TeachMeUp Logo" class="header-logo" />
             <span class="logo-text">TeachMeUp</span>
           </div>
         </a>
 
-        <!-- Links principales -->
         <nav class="nav-links">
-          <a href="{{ url_for('routes_main.index') }}" class="nav-item active"
-            >Inicio</a
-          >
+          <a href="{{ url_for('routes_main.index') }}" class="nav-item active">Inicio</a>
           <a href="{{ url_for('routes_main.profesores') }}" class="nav-item">Profesores</a>
-
         </nav>
       </div>
 
-      <!-- Usuario -->
       <div class="navbar-right" id="user-menu-toggle">
         <span class="user-info">
-          {{ session.get('username', 'Usuario') }} ({{ session.get('rol', 'rol')
-          }})
+          {{ session.get('username', 'Usuario') }} ({{ session.get('rol', 'rol') }})
         </span>
 
-        {% set avatar = session.get('avatar_url') or url_for('static',
-        filename='img/perfil.png') %}
+        {% set avatar = session.get('avatar_url') or url_for('static', filename='img/perfil.png') %}
         <img src="{{ avatar }}" alt="Foto de perfil" class="profile-icon" />
 
-        <!-- Menú desplegable -->
         <ul class="user-menu" id="user-menu">
           <li><a href="{{ url_for('routes_users.perfil') }}">Perfil</a></li>
 
           {% if session.get('rol') == 'administrador' %}
-          <li>
-            <a href="{{ url_for('routes_users.configuracion') }}"
-              >Configuración</a
-            >
-          </li>
-          {% endif %} {% if session.get('rol') in ['administrador', 'profesor']
-          %}
-          <li>
-            <a href="{{ url_for('routes_profesores.cargar_servicio') }}"
-              >Cargar servicio</a
-            >
-          </li>
-
-          </li>
-          {% endif %} 
-          
-          {% if session.get('rol') in ['administrador','profesor']%}
-          <li>
-            <a href="{{ url_for('routes_profesores.ver_servicio') }}"
-              >Ver servicio</a
-            >
-          </li>
+          <li><a href="{{ url_for('routes_users.configuracion') }}">Configuración</a></li>
           {% endif %}
-          <li>
-            <a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a>
-          </li>
+
+          {% if session.get('rol') in ['administrador', 'profesor'] %}
+          <li><a href="{{ url_for('routes_profesores.cargar_servicio') }}">Cargar servicio</a></li>
+          <li><a href="{{ url_for('routes_profesores.ver_servicio') }}">Ver servicio</a></li>
+          {% endif %}
+
+          <li><a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a></li>
         </ul>
       </div>
     </header>
 
-    <!-- Contenido -->
-    <main class="content-container">{% block contenido %}{% endblock %}</main>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="content-container">
+      {% block contenido %}{% endblock %}
+    </main>
 
     <!-- FOOTER -->
     <footer class="site-footer">
@@ -118,30 +89,27 @@
       </div>
     </footer>
 
-    <!-- Scripts del navbar -->
+    <!-- Script navbar -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const toggle = document.getElementById("user-menu-toggle");
         const menu = document.getElementById("user-menu");
-
         if (!toggle || !menu) return;
 
         toggle.addEventListener("click", function (e) {
           e.stopPropagation();
           menu.classList.toggle("open");
         });
-
         document.addEventListener("click", function () {
           menu.classList.remove("open");
         });
-
         menu.addEventListener("click", function (e) {
           e.stopPropagation();
         });
       });
     </script>
 
-    <!-- Mensajes flash -->
+    <!-- Auto desaparición de alertas -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const alerts = document.querySelectorAll(".alert");
@@ -156,7 +124,6 @@
 
     <!-- CHATBOT flotante -->
     {% if session.get('rol', '').lower() == 'alumno' %}
-
     <div id="chatbot-button">💬</div>
 
     <div id="chatbot-window">
@@ -168,28 +135,15 @@
       <div id="chatbot-messages"></div>
 
       <div id="chatbot-input-area">
-        <input
-          type="text"
-          id="chatbot-input"
-          placeholder="Escribí tu mensaje..."
-        />
+        <input type="text" id="chatbot-input" placeholder="Escribí tu mensaje..." />
         <button id="chatbot-send">Enviar</button>
       </div>
     </div>
 
     <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
-
     {% endif %}
+
+    <!-- JS adicional -->
     {% block extra_js %}{% endblock %}
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    {% block extra_css %}{% endblock %}
-    </head>
-
-      <main class="content-container">
-        {% block contenido %}{% endblock %}
-      </main>
-
-      {% block extra_js %}{% endblock %}
   </body>
 </html>
