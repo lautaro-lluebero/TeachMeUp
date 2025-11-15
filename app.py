@@ -48,3 +48,7 @@ def mostrar_chatbot():
 # Run the app
 if __name__ == "__main__":
     app.run(debug=True)
+
+from routes.routes_profesores import routes_profesores
+app.register_blueprint(routes_profesores)
+

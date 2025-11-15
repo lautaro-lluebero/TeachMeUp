@@ -53,9 +53,9 @@
             Inicio
           </a>
 
-          <!-- NUEVO: botón Mapa -->
-          <a href="{{ url_for('routes_profesores.mapa') }}"
-            class="nav-item {% if request.endpoint == 'routes_profesores.mapa' %}active{% endif %}">
+          <!-- NUEVO: botón Mapa (apunta a routes_profesores.mapa_profes) -->
+          <a href="{{ url_for('routes_profesores.mapa_profes') }}"
+             class="nav-item {% if request.endpoint == 'routes_profesores.mapa_profes' %}active{% endif %}">
             Mapa
           </a>
 
