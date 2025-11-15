@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+
+{% block titulo %}Mapa de Profes - TeachMeUp{% endblock %}
+
+{% block contenido %}
+  <!-- CSS SOLO PARA ESTA PÁGINA (sin usar extra_css) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="/static/css/mapa_prof.css?v=1">
+  <style>#map{min-height:72vh}</style> <!-- fallback por si el CSS no cargara -->
+
+  <div class="layout">
+    <aside class="left">
+      <div>
+        <h2>Zonas / Departamentos</h2>
+        <div id="zones" class="zones"></div>
+        <p class="hint">Elegí una zona para ver su cuadrado y los profes disponibles.</p>
+      </div>
+      <div class="list">
+        <div class="list-head">
+          <strong>Profes disponibles</strong>
+          <span id="count" class="badge">0</span>
+        </div>
+        <div id="cards"></div>
+      </div>
+    </aside>
+
+    <section class="map-wrap">
+      <div id="map"></div>
+      <div class="corner">Click en un profesor para ver detalles</div>
+    </section>
+  </div>
+
+  <!-- JS SOLO PARA ESTA PÁGINA -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const ZONAS = {
+      "Maipú (Centro)": {
+        bounds: [[-32.990, -68.830], [-32.950, -68.760]],
+        profesores: [
+          { id:1, nombre:"Jorge", lat:-32.973, lon:-68.793, materia:"Matemática", direccion:"Zona Maipú centro", disponible:true },
+          { id:2, nombre:"Carla", lat:-32.981, lon:-68.785, materia:"Lengua", direccion:"Calle oz", disponible:true },
+          { id:3, nombre:"Marcos", lat:-32.965, lon:-68.775, materia:"Física", direccion:"Barrio cercano", disponible:true },
+          { id:4, nombre:"Robert", lat:-32.956, lon:-68.812, materia:"Química", direccion:"Las Heras 123", disponible:false }
+        ]
+      },
+      "Ciudad de Mendoza": {
+        bounds: [[-32.920, -68.900], [-32.860, -68.810]],
+        profesores: [
+          { id:5, nombre:"Ana", lat:-32.887, lon:-68.845, materia:"Inglés", direccion:"Plaza Independencia", disponible:true },
+          { id:6, nombre:"Sofía", lat:-32.876, lon:-68.867, materia:"Historia", direccion:"Parque Central", disponible:true },
+          { id:7, nombre:"Emilio", lat:-32.900, lon:-68.880, materia:"Programación", direccion:"Godoy Cruz cerca", disponible:false }
+        ]
+      },
+      "Luján de Cuyo": {
+        bounds: [[-33.060, -68.940], [-32.980, -68.820]],
+        profesores: [
+          { id:8, nombre:"Lucía", lat:-33.020, lon:-68.875, materia:"Biología", direccion:"Chacras", disponible:true },
+          { id:9, nombre:"Pedro", lat:-33.035, lon:-68.905, materia:"Geografía", direccion:"Luján centro", disponible:true }
+        ]
+      },
+      "Luzuriaga (Maipú)": {
+        bounds: [[-32.990, -68.820], [-32.960, -68.780]],
+        profesores: [
+          { id:10, nombre:"Nico", lat:-32.978, lon:-68.802, materia:"Matemática", direccion:"Luzuriaga", disponible:true },
+          { id:11, nombre:"Vale", lat:-32.968, lon:-68.792, materia:"Química", direccion:"Luzuriaga", disponible:true }
+        ]
+      },
+      "Gutiérrez (Maipú)": {
+        bounds: [[-33.010, -68.810], [-32.980, -68.770]],
+        profesores: [
+          { id:12, nombre:"Meli", lat:-32.995, lon:-68.789, materia:"Física", direccion:"Gutiérrez", disponible:true },
+          { id:13, nombre:"Juan", lat:-33.002, lon:-68.781, materia:"Música", direccion:"Gutiérrez", disponible:false }
+        ]
+      },
+      "Russell (Maipú)": {
+        bounds: [[-33.040, -68.840], [-33.010, -68.790]],
+        profesores: [
+          { id:14, nombre:"Paula", lat:-33.024, lon:-68.815, materia:"Lengua", direccion:"Russell", disponible:true }
+        ]
+      }
+    };
+
+    const START = "Maipú (Centro)";
+    const map = L.map("map", { zoomControl:true });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const fg = L.featureGroup().addTo(map);
+    const RedIcon = new L.Icon({
+      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+      iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+    });
+
+    const $zones = document.getElementById("zones");
+    const $cards = document.getElementById("cards");
+    const $count = document.getElementById("count");
+
+    function renderZoneButtons(){
+      $zones.innerHTML = "";
+      Object.keys(ZONAS).forEach((nombre, idx) => {
+        const b = document.createElement("button");
+        b.textContent = nombre; b.dataset.zone = nombre;
+        if((nombre === START) || (!ZONAS[START] && idx === 0)) b.classList.add("active");
+        b.addEventListener("click", () => selectZone(nombre));
+        $zones.appendChild(b);
+      });
+    }
+    function setActiveButton(nombre){
+      [...$zones.querySelectorAll("button")].forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.zone === nombre);
+      });
+    }
+    function selectZone(nombre){
+      const z = ZONAS[nombre]; if(!z) return;
+      setActiveButton(nombre);
+      fg.clearLayers();
+      L.rectangle(z.bounds, { color:"#0ea5e9", weight:2, fillOpacity:0.07 }).addTo(fg);
+      const disponibles = z.profesores.filter(p => p.disponible);
+      disponibles.forEach(p => {
+        const m = L.marker([p.lat, p.lon], { icon: RedIcon }).addTo(fg);
+        m.bindPopup(`<strong>${p.nombre}</strong><br>${p.materia}<br><span class="popup-muted">${p.direccion || ""}</span>`);
+        m.bindTooltip(p.nombre, { permanent:true, direction:"right", className:"my-label", offset:[6,0] });
+      });
+      renderCards(disponibles);
+      map.fitBounds(L.latLngBounds(z.bounds).pad(0.1));
+    }
+    function renderCards(items){
+      $cards.innerHTML = ""; $count.textContent = items.length;
+      if(items.length === 0){ $cards.innerHTML = `<div class="hint">No hay profesores disponibles en esta zona ahora mismo.</div>`; return; }
+      items.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <div>
+            <div class="name">${p.nombre}</div>
+            <div class="addr">${p.materia} · ${p.direccion || "Sin dirección"}</div>
+          </div>
+          <button class="badge" data-lat="${p.lat}" data-lon="${p.lon}">Ver en mapa</button>
+        `;
+        div.querySelector("button").addEventListener("click", (e) => {
+          const lat = parseFloat(e.currentTarget.dataset.lat);
+          const lon = parseFloat(e.currentTarget.dataset.lon);
+          map.setView([lat, lon], Math.max(map.getZoom(), 16), { animate:true });
+        });
+        $cards.appendChild(div);
+      });
+    }
+    renderZoneButtons();
+    selectZone(START);
+  </script>
+{% endblock %}

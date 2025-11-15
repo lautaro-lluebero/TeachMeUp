@@ -174,6 +174,15 @@
 
     {% endif %}
     {% block extra_js %}{% endblock %}
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+    </head>
 
+      <main class="content-container">
+        {% block contenido %}{% endblock %}
+      </main>
+
+      {% block extra_js %}{% endblock %}
   </body>
 </html>
