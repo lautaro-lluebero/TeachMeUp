@@ -48,7 +48,7 @@ def crear():
         flash("Solo los profesores pueden publicar en este foro.", "danger")
         return redirect(url_for('routes_opiniones.index'))
 
-    # 🌟 Nueva verificación
+    # Nueva verificación
     profesor = Profesores.query.get(user_id)
     if profesor is None:
         flash("Debes cargar tu servicio antes de comentar en el foro.", "warning")

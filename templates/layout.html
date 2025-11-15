@@ -72,7 +72,7 @@
           </a>
           
           {% if session.get('rol') in ['administrador', 'profesor'] %}
-          <a href="{{ url_for('routes_opiniones.index') }}" class="nav-item"
+          <a href="{{ url_for('routes_opiniones.index') }}" class="nav-item {% if request.endpoint == 'routes_opiniones.index' %}active{% endif %}"
             >Foro</a
           >
 
