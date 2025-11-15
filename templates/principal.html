@@ -1,26 +1,23 @@
-{% extends "layout.html" %}
-
-{% block titulo %}Inicio · TeachMeUp{% endblock %}
-
+{% extends "layout.html" %} {% block titulo %}Inicio · TeachMeUp{% endblock %}
 {% block extra_css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/principal.css') }}"
 />
-{% endblock %}
-
-{% block contenido %}
+{% endblock %} {% block contenido %}
 <section class="hero-section">
   <div class="hero-content">
     <h1>Bienvenido a <span>TeachMeUp</span></h1>
     <p>
-      Tu espacio de aprendizaje personalizado. Conectá con profesores,
-      descubrí nuevas materias y potenciá tu conocimiento.
+      Tu espacio de aprendizaje personalizado. Conectá con profesores, descubrí
+      nuevas materias y potenciá tu conocimiento.
     </p>
-   <a href="{{ url_for('routes_main.profesores') }}" class="explorar-btn">
-    Explorar Profesores
-</a>
-
+    <a
+      href="{{ url_for('routes_profesores.listar_profesores') }}"
+      class="explorar-btn"
+    >
+      Explorar Profesores
+    </a>
   </div>
   <div class="hero-image"></div>
 </section>
@@ -29,19 +26,28 @@
   <h2>Tus próximas actividades</h2>
   <div class="card-container">
     <div class="card">
-      <img src="{{ url_for('static', filename='img/principal/virtual.png') }}" alt="Clase virtual" />
+      <img
+        src="{{ url_for('static', filename='img/principal/virtual.png') }}"
+        alt="Clase virtual"
+      />
       <h3>Clases en vivo</h3>
       <p>Accedé a sesiones en tiempo real con tus profesores favoritos.</p>
     </div>
 
     <div class="card">
-      <img src="{{ url_for('static', filename='img/principal/materiales.png') }}" alt="Materiales" />
+      <img
+        src="{{ url_for('static', filename='img/principal/materiales.png') }}"
+        alt="Materiales"
+      />
       <h3>Materiales exclusivos</h3>
       <p>Descargá recursos y ejercicios personalizados para vos.</p>
     </div>
 
     <div class="card">
-      <img src="{{ url_for('static', filename='img/principal/progreso.png') }}" alt="Seguimiento" />
+      <img
+        src="{{ url_for('static', filename='img/principal/progreso.png') }}"
+        alt="Seguimiento"
+      />
       <h3>Seguimiento de progreso</h3>
       <p>Mirá tu evolución, tus logros y las materias completadas.</p>
     </div>
@@ -50,7 +56,8 @@
 
 <section class="quote-section">
   <blockquote>
-    “La educación es el arma más poderosa que puedes usar para cambiar el mundo.”
+    “La educación es el arma más poderosa que puedes usar para cambiar el
+    mundo.”
   </blockquote>
   <p></p>
 </section>
