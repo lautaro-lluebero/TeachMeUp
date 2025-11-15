@@ -1,34 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const btnAbrir = document.getElementById("abrirFiltro");
+  const panel = document.getElementById("panelFiltro");
 
-    console.log("profesores.js cargado correctamente"); // DEBUG
+  if (!btnAbrir || !panel) return;
 
-    const btnFiltro = document.getElementById("abrirFiltro");
-    const panel = document.getElementById("panelFiltro");
+  btnAbrir.addEventListener("click", (e) => {
+    e.stopPropagation();
+    panel.classList.toggle("open");
+  });
 
-    if (!btnFiltro) {
-        console.error("NO SE ENCONTRÓ EL BOTÓN DE FILTRO");
-        return;
-    }
-    if (!panel) {
-        console.error("NO SE ENCONTRÓ EL PANEL DE FILTRO");
-        return;
-    }
+  document.addEventListener("click", () => {
+    panel.classList.remove("open");
+  });
 
-    // ABRIR / CERRAR PANEL
-    btnFiltro.addEventListener("click", () => {
-        console.log("Click en el botón de filtro");
-        panel.classList.toggle("activo");
+  panel.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  // Acordeón para cada sección
+  document.querySelectorAll(".filtro-titulo").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const contenido = btn.nextElementSibling;
+      contenido.classList.toggle("open");
     });
+  });
 
-    // ACORDEONES
-    const titulos = document.querySelectorAll(".filtro-titulo");
+  // 🔹 OPCIONAL: si una sección tiene algo tildado, la abrimos al cargar
+  document.querySelectorAll(".filtro-section").forEach((section) => {
+    const contenido = section.querySelector(".filtro-contenido");
+    const inputs = contenido ? contenido.querySelectorAll("input") : [];
 
-    titulos.forEach(titulo => {
-        titulo.addEventListener("click", () => {
-            const contenido = titulo.nextElementSibling;
-            contenido.style.display =
-                contenido.style.display === "flex" ? "none" : "flex";
-        });
-    });
+    const algunoMarcado = Array.from(inputs).some((input) => input.checked);
 
+    if (algunoMarcado && contenido) {
+      contenido.classList.add("open");
+    }
+  });
 });

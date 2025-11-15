@@ -1,94 +1,213 @@
-/* HEADER */
+/* ====== Página de Profesores ====== */
+
 .profesores-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 4px;
 }
 
-/* BOTÓN FILTRO */
+.profesores-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #111827;
+}
+
+/* Botón Filtro (arriba a la derecha) */
 .filtro-btn {
-    background: #DDE5EB;
-    border: 2px solid #000;
-    padding: 8px 22px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #2f546d;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* CONTENEDOR PRINCIPAL */
-.profesores-container {
-    position: relative; /* importante */
-    padding: 20px;
+.filtro-btn .icon {
+  font-size: 1rem;
+  line-height: 1;
 }
 
-/* ========= PANEL FLOTANTE COMO EN TU CAPTURA ========= */
+.filtro-btn:hover {
+  background-color: #244355;
+  transform: translateY(-1px);
+}
+
+/* ====== Panel de filtro flotante ====== */
+
 .filtro-panel {
-    position: absolute;
-    top: 180px;   /* ajustá 100–140 para tu header */
-    right: 30px;
-    width: 300px;
-    background: #A8BCC9;
-    border-radius: 12px;
-    padding: 15px;
-    display: none;
-    z-index: 2000;
+  position: absolute;
+  right: 20px;
+  top: 70px; /* ajustá según la altura de tu navbar */
+  width: 260px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 1000;
 }
 
-
-.filtro-panel.activo {
-    display: block;
+.filtro-panel.open {
+  display: block;
 }
 
-/* SECCIONES DEL FILTRO */
 .filtro-section {
-    margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .filtro-titulo {
-    background: #8BA3B1;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    color: white;
-    text-align: left;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 4px 0;
+  cursor: pointer;
+  color: #1f2933;
 }
 
 .filtro-contenido {
-    background: #D1DEE6;
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 5px;
-    display: none;
-    flex-direction: column;
-    gap: 5px;
+  margin-top: 4px;
+  padding-left: 4px;
+  display: none;
 }
 
-/* ========= GRILLA DE PROFESORES (TU PROBLEMA REAL) ========= */
+.filtro-contenido.open {
+  display: block;
+}
+
+.filtro-contenido label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.filtro-contenido input {
+  margin-right: 4px;
+}
+
+/* Botones del panel de filtro */
+.filtro-acciones {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-aplicar,
+.btn-limpiar {
+  border-radius: 16px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-aplicar {
+  border: none;
+  background-color: #2f546d;
+  color: #ffffff;
+}
+
+.btn-aplicar:hover {
+  background-color: #244355;
+}
+
+.btn-limpiar {
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+.btn-limpiar:hover {
+  background-color: #e5e7eb;
+}
+
+/* ====== Grid de tarjetas de profesores ====== */
+
+.profesores-container {
+  padding: 4px;
+}
+
 .profesores-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 25px;
-    padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
 }
 
-/* TARJETAS */
+/* Card estilo "tarjeta de servicio" */
 .profe-card {
-    background: #A8BCC9;
-    border-radius: 12px;
-    overflow: hidden;
-    color: white;
-    text-align: center;
+  background: linear-gradient(135deg, #d1e9ff, #f0f9ff);
+  border-radius: 16px;
+  padding: 10px 12px 12px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
+/* Zona superior de imagen/placeholder */
 .profe-img {
-    background: #DCE6EB;
-    height: 150px;
+  width: 100%;
+  height: 90px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: linear-gradient(to top, #7cb342, #a3d977, #c8e6ff);
+}
+
+/* Texto de la card */
+.profe-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.profe-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+/* Precio más destacado */
+.profe-card p:last-child {
+  margin-top: 4px;
+  font-weight: 600;
+  color: #1f2933;
+}
+
+/* ====== Responsive ====== */
+
+@media (max-width: 768px) {
+  .profesores-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .profesores-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .filtro-panel {
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}
+
+.profe-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
 }

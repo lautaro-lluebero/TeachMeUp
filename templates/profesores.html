@@ -8,95 +8,130 @@
 {% block contenido %}
 
 <div class="profesores-header">
-    <h1>Profesores</h1>
+  <h1>Profesores</h1>
 
-    <button class="filtro-btn" id="abrirFiltro">
-        Filtro
-        <span class="icon">☰</span>
-    </button>
+  <button class="filtro-btn" id="abrirFiltro">
+    Filtro
+    <span class="icon">☰</span>
+  </button>
 </div>
 
-<!-- 🔥 PANEL DE FILTRO DEBE IR AQUÍ, AFUERA DEL CONTENEDOR -->
-<div class="filtro-panel" id="panelFiltro">
+{# PANEL DE FILTRO #}
+<form
+  class="filtro-panel"
+  id="panelFiltro"
+  method="GET"
+  action="{{ url_for('routes_profesores.listar_profesores') }}"
+>
 
-    <div class="filtro-section">
-        <button class="filtro-titulo">Materia ▼</button>
-        <div class="filtro-contenido">
-            <label><input type="checkbox"> Matemática</label>
-            <label><input type="checkbox"> Lengua</label>
-            <label><input type="checkbox"> Física</label>
-            <label><input type="checkbox"> Inglés</label>
-        </div>
+  <div class="filtro-section">
+    <button type="button" class="filtro-titulo">Materia ▼</button>
+    <div class="filtro-contenido">
+      {% for cat in categorias %}
+        <label>
+          <input
+            type="checkbox"
+            name="categorias"
+            value="{{ cat }}"
+            {% if cat in categorias_sel %}checked{% endif %}
+          >
+          {{ cat }}
+        </label>
+      {% endfor %}
     </div>
+  </div>
 
-    <div class="filtro-section">
-        <button class="filtro-titulo">Ubicación ▼</button>
-        <div class="filtro-contenido">
-            <label><input type="checkbox"> Mendoza</label>
-            <label><input type="checkbox"> San Martín</label>
-            <label><input type="checkbox"> Godoy Cruz</label>
-        </div>
+  <div class="filtro-section">
+    <button type="button" class="filtro-titulo">Ubicación ▼</button>
+    <div class="filtro-contenido">
+      {% for zona in zonas %}
+        <label>
+          <input
+            type="checkbox"
+            name="zonas"
+            value="{{ zona }}"
+            {% if zona in zonas_sel %}checked{% endif %}
+          >
+          {{ zona }}
+        </label>
+      {% endfor %}
     </div>
+  </div>
 
-    <div class="filtro-section">
-        <button class="filtro-titulo">Modalidad ▼</button>
-        <div class="filtro-contenido">
-            <label><input type="radio" name="modalidad"> Virtual</label>
-            <label><input type="radio" name="modalidad"> Presencial</label>
-        </div>
+  <div class="filtro-section">
+    <button type="button" class="filtro-titulo">Modalidad ▼</button>
+    <div class="filtro-contenido">
+      <label>
+        <input
+          type="radio"
+          name="modalidad"
+          value="Virtual"
+          {% if modalidad_sel == 'Virtual' %}checked{% endif %}
+        >
+        Virtual
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="modalidad"
+          value="Presencial"
+          {% if modalidad_sel == 'Presencial' %}checked{% endif %}
+        >
+        Presencial
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="modalidad"
+          value=""
+          {% if not modalidad_sel %}checked{% endif %}
+        >
+        Cualquiera
+      </label>
     </div>
+  </div>
 
-</div>
-<!-- 🔥 FIN PANEL FLOTANTE -->
+  <div class="filtro-acciones">
+    <button type="submit" class="btn-aplicar">Aplicar filtro</button>
+    <a href="{{ url_for('routes_profesores.listar_profesores') }}" class="btn-limpiar">
+      Limpiar
+    </a>
+  </div>
+</form>
 
-
-<!-- CONTENEDOR SOLO PARA LA GRID -->
+{# GRID DE PROFESORES / SERVICIOS #}
 <div class="profesores-container">
+  <div class="profesores-grid">
 
-    <div class="profesores-grid">
-
-        <div class="profe-card">
+    {% if profesores %}
+      {% for s in profesores %}
+        <a
+          href="{{ url_for('routes_profesores.detalle_profesor', profesor_id=s.id) }}"
+          class="profe-card-link"
+        >
+          <div class="profe-card">
             <div class="profe-img"></div>
-            <h3>Matías Rivera</h3>
-            <p>Análisis Matemático</p>
-        </div>
 
-        <div class="profe-card">
-            <div class="profe-img"></div>
-            <h3>Sasha Gómez</h3>
-            <p>Lengua</p>
-        </div>
+            <h3>{{ s.nombre_profesor }}</h3>
+            <p>{{ s.categoria }} · {{ s.nivel }}</p>
+            <p>
+              {{ s.modalidad }}
+              {% if s.direccion %} · {{ s.direccion }}{% endif %}
+            </p>
+            <p>${{ s.precio_por_hora }} / hora</p>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p>No se encontraron profesores con esos filtros.</p>
+    {% endif %}
 
-        <div class="profe-card">
-            <div class="profe-img"></div>
-            <h3>Enzo Suárez</h3>
-            <p>Álgebra</p>
-        </div>
-
-        <div class="profe-card">
-            <div class="profe-img"></div>
-            <h3>Fernando Prada</h3>
-            <p>Física</p>
-        </div>
-
-        <div class="profe-card">
-            <div class="profe-img"></div>
-            <h3>Catalina Ortega</h3>
-            <p>Inglés</p>
-        </div>
-
-        <div class="profe-card">
-            <div class="profe-img"></div>
-            <h3>José de las Praderas</h3>
-            <p>Historia</p>
-        </div>
-
-    </div>
-
-</div> <!-- /profesores-container -->
+  </div>
+</div>
 
 {% endblock %}
 
 {% block extra_js %}
+{# OJO: este path asume que el archivo está en static/profesores.js #}
 <script src="{{ url_for('static', filename='profesores.js') }}"></script>
 {% endblock %}

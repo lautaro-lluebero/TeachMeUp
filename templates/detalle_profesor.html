@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block titulo %}{{ servicio.nombre_profesor }} · {{ servicio.categoria }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detalle_profesor.css') }}">
+{% endblock %}
+
+{% block contenido %}
+<div class="detalle-profesor-page">
+  <div class="detalle-profesor-card">
+
+    <!-- Columna izquierda: avatar -->
+    <div class="detalle-profesor-left">
+      <div class="detalle-profesor-avatar">
+        <div class="avatar-circulo"></div>
+        <div class="avatar-cuerpo"></div>
+      </div>
+    </div>
+
+    <!-- Columna central: nombre + materia + descripción + datos -->
+    <div class="detalle-profesor-middle">
+      <h1 class="detalle-profesor-nombre">{{ servicio.nombre_profesor }}</h1>
+
+      <p class="detalle-profesor-materia">
+        {{ servicio.categoria }} | {{ servicio.nivel }}
+      </p>
+
+      <p class="detalle-profesor-descripcion">
+        {{ servicio.descripcion }}
+      </p>
+
+      <div class="detalle-profesor-datos">
+        <p><strong>Modalidad:</strong> {{ servicio.modalidad }}</p>
+        <p><strong>Zona:</strong> {{ servicio.direccion }}</p>
+        <p><strong>Contacto:</strong> {{ servicio.celular }}</p>
+        <p><strong>Precio/hora:</strong> ${{ servicio.precio_por_hora }}</p>
+      </div>
+    </div>
+
+    <!-- Columna derecha: mapa simulado -->
+    <div class="detalle-profesor-right">
+      <div class="detalle-profesor-mapa">
+        <span>[Mapa de ubicación simulado]</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
