@@ -12,6 +12,13 @@ class Users(db.Model):
     profesor = db.relationship("Profesores", back_populates="user", uselist=False)
     alumno = db.relationship("Alumno", back_populates="user", uselist=False)
 
+    # RELACIÓN CORRECTA
+    opiniones = db.relationship(
+        "Opinion",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
+
     def __init__(self,nombre,email, password, rol):
         self.nombre = nombre
         self.email = email

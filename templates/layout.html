@@ -6,11 +6,17 @@
     <title>{% block titulo %}TeachMeUp{% endblock %}</title>
 
     <!-- CSS general -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
 
     <!-- CSS del chatbot -->
     {% if session.get('logged_in') %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chatbot.css') }}"
+    />
     {% endif %}
 
     <!-- Bloque extendible para CSS adicional -->
@@ -18,7 +24,6 @@
   </head>
 
   <body class="layout-body">
-
     <!-- PASAR ROL Y USUARIO A JS -->
     <script>
       const USER_ROLE = "{{ session.get('rol', '').lower() }}";
@@ -26,62 +31,88 @@
     </script>
 
     <!-- Mensajes flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
     <div class="perfil-alerts">
       {% for category, message in messages %}
       <div class="alert alert-{{ category }}">{{ message }}</div>
       {% endfor %}
     </div>
-    {% endif %}
-    {% endwith %}
+    {% endif %} {% endwith %}
 
     <!-- NAVBAR -->
     <header class="navbar">
       <div class="navbar-left">
         <a href="{{ url_for('routes_main.index') }}" class="logo-link">
           <div class="logo-brand-container">
-            <img src="{{ url_for('static', filename='img/logoTeachMeUp.png') }}" alt="TeachMeUp Logo" class="header-logo" />
+            <img
+              src="{{ url_for('static', filename='img/logoTeachMeUp.png') }}"
+              alt="TeachMeUp Logo"
+              class="header-logo"
+            />
             <span class="logo-text">TeachMeUp</span>
           </div>
         </a>
 
         <nav class="nav-links">
-          <a href="{{ url_for('routes_main.index') }}" class="nav-item active">Inicio</a>
-          <a href="{{ url_for('routes_profesores.listar_profesores') }}" class="nav-item">Profesores</a>
+          <a href="{{ url_for('routes_main.index') }}" class="nav-item active"
+            >Inicio</a
+          >
+          <a
+            href="{{ url_for('routes_profesores.listar_profesores') }}"
+            class="nav-item"
+            >Profesores</a
+          >
+          {% if session.get('rol') in ['administrador', 'profesor'] %}
+          <a href="{{ url_for('routes_opiniones.index') }}" class="nav-item"
+            >Foro</a
+          >
+          {% endif %}
         </nav>
-
       </div>
 
       <div class="navbar-right" id="user-menu-toggle">
         <span class="user-info">
-          {{ session.get('username', 'Usuario') }} ({{ session.get('rol', 'rol') }})
+          {{ session.get('username', 'Usuario') }} ({{ session.get('rol', 'rol')
+          }})
         </span>
 
-        {% set avatar = session.get('avatar_url') or url_for('static', filename='img/perfil.png') %}
+        {% set avatar = session.get('avatar_url') or url_for('static',
+        filename='img/perfil.png') %}
         <img src="{{ avatar }}" alt="Foto de perfil" class="profile-icon" />
 
         <ul class="user-menu" id="user-menu">
           <li><a href="{{ url_for('routes_users.perfil') }}">Perfil</a></li>
 
           {% if session.get('rol') == 'administrador' %}
-          <li><a href="{{ url_for('routes_users.configuracion') }}">Configuración</a></li>
+          <li>
+            <a href="{{ url_for('routes_users.configuracion') }}"
+              >Configuración</a
+            >
+          </li>
+          {% endif %} {% if session.get('rol') in ['administrador', 'profesor']
+          %}
+          <li>
+            <a href="{{ url_for('routes_profesores.cargar_servicio') }}"
+              >Cargar servicio</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('routes_profesores.ver_servicio') }}"
+              >Ver servicio</a
+            >
+          </li>
           {% endif %}
 
-          {% if session.get('rol') in ['administrador', 'profesor'] %}
-          <li><a href="{{ url_for('routes_profesores.cargar_servicio') }}">Cargar servicio</a></li>
-          <li><a href="{{ url_for('routes_profesores.ver_servicio') }}">Ver servicio</a></li>
-          {% endif %}
-
-          <li><a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a></li>
+          <li>
+            <a href="{{ url_for('routes_auth.logout') }}">Cerrar sesión</a>
+          </li>
         </ul>
       </div>
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="content-container">
-      {% block contenido %}{% endblock %}
-    </main>
+    <main class="content-container">{% block contenido %}{% endblock %}</main>
 
     <!-- FOOTER -->
     <footer class="site-footer">
@@ -136,7 +167,11 @@
       <div id="chatbot-messages"></div>
 
       <div id="chatbot-input-area">
-        <input type="text" id="chatbot-input" placeholder="Escribí tu mensaje..." />
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Escribí tu mensaje..."
+        />
         <button id="chatbot-send">Enviar</button>
       </div>
     </div>

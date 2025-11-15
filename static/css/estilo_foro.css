@@ -1,0 +1,170 @@
+/* ============================
+   FORO — Estilo TeachMeUp
+   ============================ */
+
+.foro-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+/* LISTA PRINCIPAL */
+.opiniones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CADA OPINIÓN */
+.op-card {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  border-left: 5px solid #2f546d;
+  animation: fadeIn 0.3s ease;
+}
+
+.op-avatar {
+  width: 48px;
+  height: 48px;
+  background: #2f546d;
+  color: white;
+  border-radius: 50%;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.op-bubble {
+  flex: 1;
+}
+
+/* CABECERA */
+.op-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.op-user {
+  font-weight: 600;
+  color: #2f546d;
+}
+
+.op-time {
+  font-size: 0.85em;
+  color: gray;
+}
+
+.op-text {
+  margin-top: 8px;
+  font-size: 1em;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* ICONOS DE ACCIÓN */
+.op-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.op-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #2f546d;
+  transition: 0.2s;
+}
+
+.op-actions button:hover {
+  color: #00b4d8;
+  transform: translateY(-2px);
+}
+
+.like-btn.liked {
+  color: #e63946;
+}
+
+/* RESPUESTAS */
+.reply-box {
+  margin-left: 60px;
+  margin-top: 10px;
+  padding-left: 16px;
+  border-left: 3px solid #5d98bc;
+}
+
+.reply-card {
+  background: #f5f8fa;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+
+/* FORM PARA ESCRIBIR UNA OPINIÓN */
+.op-input-wrap {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.op-form {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  gap: 10px;
+}
+
+.op-form textarea {
+  flex: 1;
+  padding: 12px;
+  resize: none;
+  border-radius: 12px;
+  border: 2px solid #2f546d;
+  font-family: "Poppins", sans-serif;
+}
+
+.op-send {
+  background: #2f546d;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0 18px;
+  cursor: pointer;
+  font-size: 1.4em;
+  transition: 0.3s;
+}
+
+.op-send:hover {
+  background: #00b4d8;
+}
+
+/* MENSAJE VACÍO */
+.op-empty {
+  text-align: center;
+  color: #2f546d;
+  font-weight: 500;
+  padding: 20px;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
