@@ -68,21 +68,6 @@
             >Foro</a
           >
           {% endif %}
-          <!-- Inicio -->
-          <a
-            href="{{ url_for('routes_main.index') }}"
-            class="nav-item {% if request.endpoint == 'routes_main.index' %}active{% endif %}"
-          >
-            Inicio
-          </a>
-
-          <!-- Profesores -->
-          <a
-            href="{{ url_for('routes_profesores.listar_profesores') }}"
-            class="nav-item {% if request.endpoint == 'routes_profesores.listar_profesores' %}active{% endif %}"
-          >
-            Profesores
-          </a>
 
           <!-- NUEVO: botón Mapa -->
           <a
