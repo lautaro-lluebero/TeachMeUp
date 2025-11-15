@@ -47,17 +47,19 @@
         </a>
 
         <nav class="nav-links">
+          <!-- Inicio -->
           <a href="{{ url_for('routes_main.index') }}"
              class="nav-item {% if request.endpoint == 'routes_main.index' %}active{% endif %}">
             Inicio
           </a>
 
-          <!-- NUEVO: botón Mapa -->
+          <!-- NUEVO: botón Mapa (apunta a routes_profesores.mapa_profes) -->
           <a href="{{ url_for('routes_profesores.mapa_profes') }}"
              class="nav-item {% if request.endpoint == 'routes_profesores.mapa_profes' %}active{% endif %}">
             Mapa
           </a>
 
+          <!-- Profesores -->
           <a href="{{ url_for('routes_profesores.listar_profesores') }}"
              class="nav-item {% if request.endpoint == 'routes_profesores.listar_profesores' %}active{% endif %}">
             Profesores

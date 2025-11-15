@@ -211,3 +211,12 @@ def listar_profesores():
 def detalle_profesor(profesor_id):
     servicio = Profesores.query.get_or_404(profesor_id)
     return render_template("detalle_profesor.html", servicio=servicio)
+# routes_profesores.py
+from flask import Blueprint, render_template
+
+routes_profesores = Blueprint('routes_profesores', __name__)
+
+@routes_profesores.route("/mapa")
+def mapa():
+    return render_template("mapaProf.html")
+
