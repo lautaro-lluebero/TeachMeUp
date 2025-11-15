@@ -55,20 +55,28 @@
         </a>
 
         <nav class="nav-links">
-          <a href="{{ url_for('routes_main.index') }}" class="nav-item active"
-            >Inicio</a
+          <!-- Inicio -->
+          <a
+            href="{{ url_for('routes_main.index') }}"
+            class="nav-item {% if request.endpoint == 'routes_main.index' %}active{% endif %}"
           >
+            Inicio
+          </a>
+
+          <!-- Profesores -->
           <a
             href="{{ url_for('routes_profesores.listar_profesores') }}"
-            class="nav-item"
-            >Profesores</a
+            class="nav-item {% if request.endpoint == 'routes_profesores.listar_profesores' %}active{% endif %}"
           >
+            Profesores
+          </a>
+          
           {% if session.get('rol') in ['administrador', 'profesor'] %}
           <a href="{{ url_for('routes_opiniones.index') }}" class="nav-item"
             >Foro</a
           >
-          {% endif %}
 
+          {% endif %}
           <!-- NUEVO: botón Mapa -->
           <a
             href="{{ url_for('routes_profesores.mapa') }}"
