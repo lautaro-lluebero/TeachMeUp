@@ -213,5 +213,3 @@ def detalle_profesor(profesor_id):
     return render_template("detalle_profesor.html", servicio=servicio)
 # routes_profesores.py
 from flask import Blueprint, render_template
-
-routes_profesores = Blueprint('routes_profesores', __name__)
