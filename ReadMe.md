@@ -1,4 +1,7 @@
 # TeachMeUp
+TeachMeUp es una página web pensada para facilitar el encuentro entre alumnos y profesores particulares.
+Desde el menú podes navegar entre el inicio y el listado de profesores, filtrar por materia, zona y modalidad (virtual, presencial o mixta) y ver en cada tarjeta el nombre del docente, la asignatura, el nivel y el precio por hora.
+El objetivo de la plataforma es que cualquier estudiante pueda encontrar rápidamente un profesor adecuado y empezar a tomar clases de manera simple y segura. Y por el lado de profesores poder brindar un espacio compartido donde puedan compartir materiales, experiencias e inquietudes con seguridad
 
 Integrantes del proyecto: Francisco Iglesias, Jazmin Benitez, Lautaro Lluebero, Máximo Mercau y Santino Barrionuevo.
 
