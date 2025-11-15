@@ -53,17 +53,17 @@
             Inicio
           </a>
 
-          <!-- NUEVO: botón Mapa -->
-         <a href="{{ url_for('routes_profesores.mapa') }}"
-            class="nav-item {% if request.endpoint == 'routes_profesores.mapa' %}active{% endif %}">
-            Mapa
-         </a>
-
           <!-- Profesores -->
           <a href="{{ url_for('routes_profesores.listar_profesores') }}"
              class="nav-item {% if request.endpoint == 'routes_profesores.listar_profesores' %}active{% endif %}">
             Profesores
           </a>
+
+          <!-- NUEVO: botón Mapa -->
+         <a href="{{ url_for('routes_profesores.mapa') }}"
+            class="nav-item {% if request.endpoint == 'routes_profesores.mapa' %}active{% endif %}">
+            Mapa
+         </a>
         </nav>
       </div>
 
