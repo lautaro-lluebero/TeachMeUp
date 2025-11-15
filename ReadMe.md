@@ -1,4 +1,4 @@
-# Nombre
+# TeachMeUp
 
 Integrantes del proyecto: Francisco Iglesias, Jazmin Benitez, Lautaro Lluebero, Máximo Mercau y Santino Barrionuevo.
 

@@ -360,3 +360,14 @@
     opacity: 1;
   }
 }
+
+/* Footer */
+.site-footer { 
+  margin-top: 24px; 
+  background: #2c4a5c; 
+}
+.site-footer .container { 
+  padding: 16px 20px; 
+  text-align: center; 
+  color: var(--text-light); 
+}
