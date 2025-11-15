@@ -2,9 +2,9 @@
 
 {% block titulo %}{{ servicio.nombre_profesor }} · {{ servicio.categoria }}{% endblock %}
 
+
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/detalle_profesor.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 {% endblock %}
 
 {% block contenido %}
@@ -38,6 +38,14 @@
         <p><strong>Precio/hora:</strong> ${{ servicio.precio_por_hora }}</p>
       </div>
     </div>
+
+    <!-- Columna derecha: mapa simulado -->
+    <div class="detalle-profesor-right">
+      <div class="detalle-profesor-mapa">
+        <span>[Mapa de ubicación simulado]</span>
+      </div>
+    </div>
+
   </div>
 </div>
 {% endblock %}

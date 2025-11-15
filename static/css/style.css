@@ -202,26 +202,23 @@
 .nav-item {
   color: var(--text-light);
   text-decoration: none;
-  padding: 10px 20px;
+  padding: 10px 20px; /* un poco más alto */
   margin: 0 4px;
   border-radius: 20px;
   transition: background-color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 42px;
+  height: 42px; /* antes 32px */
   font-size: 1.1em;
   line-height: 1;
   box-sizing: border-box;
-  background-color: transparent;
 }
 
-/* Página actual */
 .nav-item.active {
   background-color: var(--active-bg-color);
 }
 
-/* Hover para las otras */
 .nav-item:hover:not(.active) {
   background-color: rgba(255, 255, 255, 0.15);
 }
