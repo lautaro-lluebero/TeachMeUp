@@ -1,120 +1,93 @@
-:root{
-  --header-bg-color:#2c4a5c;
-  --active-bg-color:#5d98bc;
-  --text-light:#ffffff;
-  --main-bg-color:#f0f0f0;
-  --logo-bg-color:#ffffff;
-  --logo-text-color:#2c4a5c;
-
-  --card-bg:#ffffff;
-  --card-border:#e3e7ea;
-  --muted:#64748b;
-  --shadow:0 6px 14px rgba(17,24,39,.08);
-  --radius:14px;
+/* Contenedor general */
+.mp-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 20px;
+  align-items: start;
 }
 
-body.layout-body{ background-color:var(--main-bg-color); }
-
-.layout{
-  display:grid;
-  grid-template-columns: 360px 1fr;
-  gap:18px;
-  padding:18px;
-  max-width:1400px;
-  margin:0 auto;
+/* Panel izquierdo */
+.mp-left {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
 }
 
-.left{
-  background:var(--card-bg);
-  border:1px solid var(--card-border);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:16px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  min-height:72vh;
+/* Título y pista */
+.mp-left h2 { margin: 0 0 10px; }
+.mp-hint { margin: 8px 0 16px; color: #6b7280; font-size: .92rem; }
+
+/* Botonera de zonas */
+.mp-zones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 12px;
+}
+.mp-zones button {
+  appearance: none;
+  border: 1px dashed #d3e2f1;
+  background: #f8fafc;
+  color: #334155;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.mp-zones button:hover { background: #eef6ff; }
+.mp-zones button.active {
+  background: #0ea5e9; color: #fff; border-color: #0ea5e9;
 }
 
-.left h2{
-  font-size:18px;
-  margin:0;
-  color:#1f2937;
-  font-weight:800;
+/* Lista de profes */
+.mp-list { margin-top: 16px; }
+.mp-list-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.mp-badge {
+  background: #e2f2ff; color: #0b6bb6; border: 0;
+  padding: 6px 10px; border-radius: 999px; font-weight: 700; cursor: pointer;
+}
+#cards { display: flex; flex-direction: column; gap: 10px; }
+
+.mp-card {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; border: 1px solid #edf2f7; border-radius: 12px;
+  padding: 12px 14px;
+}
+.mp-name { font-weight: 700; }
+.mp-addr { color: #6b7280; margin-top: 4px; font-size: .92rem; }
+
+/* Mapa */
+.mp-map-wrap {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  padding: 10px;
+}
+#map { width: 100%; min-height: 72vh; border-radius: 12px; }
+
+/* Etiqueta fija de marcador */
+.mp-label {
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: #111827;
+  font-weight: 600;
+}
+.mp-muted { color: #6b7280; }
+
+/* Texto en la esquina del mapa */
+.mp-corner {
+  margin-top: 6px; font-size: .9rem; color: #6b7280; text-align: right;
 }
 
-.zones{
-  display:flex; flex-wrap:wrap; gap:10px;
-  margin-top:6px;
+/* Responsive */
+@media (max-width: 1100px) {
+  .mp-layout { grid-template-columns: 1fr; }
+  #map { min-height: 60vh; }
 }
-
-.zones button{
-  appearance:none; border:1px solid var(--card-border);
-  background:#f6f9fb; color:#0b1321;
-  padding:10px 14px; border-radius:999px;
-  cursor:pointer; font-weight:700; font-size:14px;
-  transition: .2s ease;
-  box-shadow:0 1px 0 rgba(0,0,0,.02);
-}
-.zones button:hover{ background:#eef4f8 }
-.zones button.active{
-  background:var(--logo-bg-color);
-  outline:2px solid var(--active-bg-color);
-  color:#0b1321;
-}
-
-.hint{ color:var(--muted); font-size:13px }
-
-.list{
-  margin-top:4px; border-top:1px dashed var(--card-border);
-  padding-top:10px; display:flex; flex-direction:column; gap:10px; overflow:auto;
-}
-
-.list-head{
-  display:flex; justify-content:space-between; align-items:center;
-  font-weight:800; color:#1f2937;
-}
-
-.card{
-  background:var(--card-bg);
-  border:1px solid var(--card-border);
-  border-radius:12px;
-  padding:12px;
-  display:flex; justify-content:space-between; align-items:center; gap:10px;
-  box-shadow:var(--shadow);
-}
-.card .name{ font-weight:800; color:#111827 }
-.card .addr{ font-size:12px; color:var(--muted) }
-
-.badge{
-  font-size:12px; padding:6px 10px; border-radius:999px;
-  background:#e7f2fa; color:#1e3a8a; font-weight:800; border:1px solid #cfe3f3;
-  cursor:pointer;
-}
-
-.map-wrap{
-  position:relative; border-radius:18px;
-  border:2px solid #cfd8df; overflow:hidden; background:#fff;
-  box-shadow:var(--shadow);
-}
-#map{ height:72vh; width:100% }
-
-.corner{
-  position:absolute; inset:auto auto 12px 12px;
-  background:#ffffffdd; padding:8px 10px; border-radius:10px;
-  font-size:12px; border:1px solid var(--card-border); color:#111827;
-}
-
-.leaflet-tooltip.my-label{
-  background:#ffffffee; color:#111827; font-weight:800;
-  border:1px solid #cfd8df; border-radius:8px; padding:4px 8px;
-  box-shadow:var(--shadow);
-}
-.popup-muted{ color:var(--muted) }
-
-@media (max-width: 1050px){
-  .layout{ grid-template-columns:1fr; }
-  #map{ height:60vh }
-}
-
-
