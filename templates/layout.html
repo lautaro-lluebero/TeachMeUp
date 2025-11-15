@@ -54,10 +54,10 @@
           </a>
 
           <!-- NUEVO: botón Mapa -->
-          <a href="{{ url_for('routes_profesores.mapa') }}"
+         <a href="{{ url_for('routes_profesores.mapa') }}"
             class="nav-item {% if request.endpoint == 'routes_profesores.mapa' %}active{% endif %}">
             Mapa
-          </a>
+         </a>
 
           <!-- Profesores -->
           <a href="{{ url_for('routes_profesores.listar_profesores') }}"
