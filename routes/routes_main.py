@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, url_for
+from flask import Blueprint, render_template, session
 
 routes_main = Blueprint("routes_main", __name__)
 
@@ -11,5 +11,4 @@ def index():
 
 @routes_main.route("/profesores")
 def profesores():
-    # acá vas a cargar a futuro profesores reales desde la DB
     return render_template(url_for("routes_profesores.listar_profesores"))

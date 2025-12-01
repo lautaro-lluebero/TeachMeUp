@@ -115,25 +115,24 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   opacity: 1;
   transition: opacity 1s ease;
-  animation: fadeOut 1s ease 4s forwards; /* Desaparece después de 4s */
 }
 
 /* Colores por categoría */
 .alert-success {
-  background-color: #28a745; /* verde */
+  background-color: #28a745;
 }
 
 .alert-error {
-  background-color: #dc3545; /* rojo */
+  background-color: #dc3545;
 }
 
 .alert-warning {
-  background-color: #ffc107; /* amarillo */
+  background-color: #ffc107;
   color: #333;
 }
 
 .alert-info {
-  background-color: #17a2b8; /* celeste */
+  background-color: #17a2b8;
 }
 
 /* Animaciones */

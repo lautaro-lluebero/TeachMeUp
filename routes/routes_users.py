@@ -212,15 +212,13 @@ def delete_user(id):
 
     db.session.delete(user)
     db.session.commit()
-
-    # Si se borra al usuario logueado, limpiamos la sesión
     if session.get("user_id") == id:
         session.clear()
 
     flash("Usuario eliminado", "success")
     return redirect(url_for("routes_users.configuracion"))
 
-# NUEVO USUARIO (solo admin) 
+# NUEVO USUARIO 
 @routes_users.route("/nuevo", methods=["GET", "POST"])
 @login_required
 @admin_required
@@ -272,8 +270,6 @@ def nuevo_usuario():
                 email=email,
                 rol=rol_form,
             )
-
-        # Crear usuario con password hasheada
         new_user = Users(
             nombre=nombre,
             email=email,

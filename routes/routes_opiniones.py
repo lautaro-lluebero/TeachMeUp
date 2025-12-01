@@ -8,8 +8,7 @@ from datetime import datetime
 
 routes_opiniones = Blueprint('routes_opiniones', __name__, url_prefix='/opiniones')
 
-
-# LISTAR + FORM abajo (usa templates/opiniones.html)
+#Listar
 @routes_opiniones.route('/', methods=['GET'])
 def index():
 
@@ -35,7 +34,7 @@ def index():
     return render_template('opiniones.html', opiniones=opiniones)
 
 
-# CREAR (solo profesores logueados)
+# CREAR 
 @routes_opiniones.route('/crear', methods=['POST'])
 @login_required
 def crear():
@@ -72,7 +71,6 @@ def crear():
 
 
 
-# (Opcional) compatibilidad si alguna vez llamaste a .nueva
 @routes_opiniones.route('/nueva', methods=['GET'])
 def nueva():
     return redirect(url_for('routes_opiniones.index'))

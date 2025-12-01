@@ -22,15 +22,12 @@ NIVELES = [
     "Primario-Secundario", "Secundario-Universitario", "Universitario"
 ]
 
-# ================== CARGAR SERVICIO (UNO POR PROFESOR) ==================
 
 @routes_profesores.route("/CargarServicio", methods=["GET", "POST"])
 @prof_required
 @login_required
 def cargar_servicio():
     profesor_id = session.get("user_id")
-
-    # Si ya tiene servicio → que vaya a ver/modificar
     servicio_existente = Profesores.query.get(profesor_id)
     if servicio_existente:
         flash("Ya tienes un servicio existente.", "info")
@@ -65,7 +62,7 @@ def cargar_servicio():
         return redirect(url_for("routes_profesores.cargar_servicio"))
 
     nuevo_servicio = Profesores(
-        id=profesor_id,  # 1 servicio por usuario: PK = FK user_id
+        id=profesor_id, 
         nombre_profesor=nombre_profesor,
         categoria=categoria,
         nivel=nivel,
@@ -82,8 +79,7 @@ def cargar_servicio():
     flash("Servicio cargado correctamente.", "success")
     return redirect(url_for("routes_profesores.ver_servicio"))
 
-
-# ================== VER SERVICIO ==================
+#Ver servicio
 
 @routes_profesores.route("/VerServicio")
 @prof_required
@@ -104,7 +100,7 @@ def ver_servicio():
     )
 
 
-# ================== BORRAR SERVICIO ==================
+#Borrar servicio
 
 @routes_profesores.route("/BorrarServicio", methods=["POST"])
 @prof_required
@@ -125,7 +121,7 @@ def borrar_servicio():
     return redirect(url_for("routes_main.index"))
 
 
-# ================== MODIFICAR SERVICIO ==================
+#Modificar servicio
 
 @routes_profesores.route("/ModificarServicio", methods=["GET", "POST"])
 @prof_required
@@ -169,7 +165,7 @@ def modificar_servicio():
     return redirect(url_for("routes_profesores.ver_servicio"))
 
 
-# ================== LISTAR PROFESORES (PÚBLICO + FILTROS) ==================
+#Listar profesores
 
 @routes_profesores.route("/", methods=["GET"])
 def listar_profesores():
